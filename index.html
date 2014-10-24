@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset='utf8' />
+        <title>Hódító kalkulátor</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+        <script src="scripts/custom.js"></script>
+        <style>
+            h3 {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <script>
+            $(document).ready(function() {
+                $(document).on("dblclick", "h3", function (elem) {
+                    $(this).parent().children('.hideable').toggle();
+                });
+                $(document).on("change", ".army", function (e) {recalculateArmy()});
+                $(document).on("change", ".eco", function (e) {recalculateEco()});
+                $(document).on("change", ".build", function (e) {recalculateBuild()});
+            });
+        </script>
+        <div class="modal fade" id="csata_szimulalasa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Csata szimulálása</h4>
+                    </div>
+                    <div class="modal-body">
+                        Hamarosan...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <!--button type="button" class="btn btn-primary">Save changes</button-->
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container">
+            <div class="page-header">
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#csata_szimulalasa">Csata szimulálása</button>
+                <h1>Hódító kalkulátor <small>v1.0a</small></h1>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="col-md-12">
+                        <h3 id="alapadatok">Alapadatok<span class="glyphicon glyphicon-user pull-right"></span></h3>
+                        <form role="form" class='hideable'>
+                            <div class="form-group">
+                                <label for="orszag_faj" class="col-sm-3 control-label">Faj</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control eco army" id="orszag_faj">
+                                        <option value="1">elf</option>
+                                        <option value="2">ork</option>
+                                        <option value="3">félelf</option>
+                                        <option value="4">törpe</option>
+                                        <option value="5">gnóm</option>
+                                        <option value="6">óriás</option>
+                                        <option value="7">élőhalott</option>
+                                        <option value="8">ember</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="orszag_szemelyiseg" class="col-sm-3 control-label">Személyiség</label>
+                                <div class="col-sm-7">
+                                    <select class="form-control eco" id="orszag_szemelyiseg">
+                                        <option value="1">kereskedő</option>
+                                        <option value="2">tolvaj</option>
+                                        <option value="3">varázsló</option>
+                                        <option value="4">harcos</option>
+                                        <option value="5">tábornok</option>
+                                        <option value="6">vándor</option>
+                                        <option value="7">gazdálkodó</option>
+                                        <option value="8">tudós</option>
+                                        <option value="9">túlélő</option>
+                                        <option value="10">karavánmester</option>
+                                        <option value="11">építész</option>
+                                        <option value="12">stratéga</option>
+                                        <option value="13">kufár</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label">Népesség</label>
+                                    <div class="col-sm-7">
+                                        <input type="email" class="form-control" id="orszag_nepesseg" readonly>
+                                    </div>
+                            </div>
+                            <div class="form-group">
+                                    <label class="col-sm-3 control-label">Foglalkoztatottság</label>
+                                    <div class="col-sm-7">
+                                        <input type="email" class="form-control" id="orszag_foglalkoztatottsag" readonly>
+                                    </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h3>Épületek<span id="epulet_osszeg"></span> <span class="glyphicon glyphicon-home pull-right"></span></h3>
+                        <form role="form" class="hideable">
+                            <div class="form-group">
+                                <label for="epulet_ures" class="col-sm-3 control-label">Üres</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_ures">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_haz" class="col-sm-3 control-label">Ház</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_haz">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_barakk" class="col-sm-3 control-label">Barakk</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control army eco build" id="epulet_barakk">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_kovacsmuhely" class="col-sm-3 control-label">Kovácsműhely</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_kovacsmuhely">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_tanya" class="col-sm-3 control-label">Tanya</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_tanya">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_konyvtar" class="col-sm-3 control-label">Könyvtár</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control build" id="epulet_konyvtar">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_raktar" class="col-sm-3 control-label">Raktár</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_raktar">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_fatelep" class="col-sm-3 control-label">Fatelep</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_fatelep">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_kobanya" class="col-sm-3 control-label">Kőbánya</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_kobanya">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_fembanya" class="col-sm-3 control-label">Fémbánya</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_fembanya">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_agyagbanya" class="col-sm-3 control-label">Agyagbánya</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_agyagbanya">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_dragakobanya" class="col-sm-3 control-label">Drágakőbánya</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco build" id="epulet_dragakobanya">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_ortorony" class="col-sm-3 control-label">Őrtorony</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control army build" id="epulet_ortorony">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_kocsma" class="col-sm-3 control-label">Kocsma</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control army build" id="epulet_kocsma">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_templom" class="col-sm-3 control-label">Templom</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control army build" id="epulet_templom">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_korhaz" class="col-sm-3 control-label">Kórház</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control build" id="epulet_korhaz">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_piac" class="col-sm-3 control-label">Piac</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control build" id="epulet_piac">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="epulet_bank" class="col-sm-3 control-label">Bank</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control build" id="epulet_bank">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-12">
+                        <h3>Tudomány <span class="glyphicon glyphicon-info-sign pull-right"></span></h3>
+                        <button type="button" class="btn btn-info" onclick="checkSciMax(true);"><span class="glyphicon glyphicon-arrow-up"></span> Max</button>
+                        <form role="form" class="hideable">
+                            <div class="form-group">
+                                <label for="tudomany_ipar" class="col-sm-3 control-label">Ipar</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_ipar">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_gazdasag" class="col-sm-3 control-label">Gazdaság</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_gazdasag">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_mezogazdasag" class="col-sm-3 control-label">Mezőgazdaság</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control eco" id="tudomany_mezogazdasag">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_lakashelyzet" class="col-sm-3 control-label">Lakáshelyzet</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control army" id="tudomany_lakashelyzet">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_banyaszat" class="col-sm-3 control-label">Bányászat</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_banyaszat">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_hadugy" class="col-sm-3 control-label">Hadügy</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_hadugy">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_magia" class="col-sm-3 control-label">Mágia</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_magia">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="tudomany_tolvajlas" class="col-sm-3 control-label">Tolvajlás</label>
+                                <div class="col-sm-2">
+                                    <input type="email" class="form-control" id="tudomany_tolvajlas">
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h3>Haderő <span class="glyphicon glyphicon-screenshot pull-right"></span></h3>
+                            <table class="table table-striped hideable">
+                                <thead>
+                                    <tr>
+                                        <th>Férőhely</th>
+                                        <th>Menny.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Barakk</td>
+                                        <td id="hadsereg_barakk_menny"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Torony</td>
+                                        <td id="hadsereg_torony_menny"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Barakk toronyíjászok nélkül</td>
+                                        <td id="hadsereg_barakknetto_menny"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Templom</td>
+                                        <td id="hadsereg_templom_menny"></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Kocsma</td>
+                                        <td id="hadsereg_kocsma_menny"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="col-md-12">
+                            <h3>Gazdaság <span class="glyphicon glyphicon-shopping-cart pull-right"></span></h3>
+                            <div class="hideable">
+                                <div class="col-md-12">
+                                    <div class="col-md-6"><strong>Gabona szükséglet:</strong></div>
+                                    <div class="col-md-6" id="gazdasag_gabona_szukseglet"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6"><strong>Gabona egyenleg:</strong></div>
+                                    <div class="col-md-6" id="gazdasag_gabona_egyenleg"></div>
+                                </div>
+                                <!--div class="col-md-12">
+                                    <div class="col-md-6"><strong>Bevétel:</strong></div>
+                                    <div class="col-md-6" id="gazdasag_bevetel"></div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="col-md-6"><strong>Fizetendő zsold:</strong></div>
+                                    <div class="col-md-6" id="gazdasag_fizetendo_zsold"></div>
+                                </div-->
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Nyersanyag</th>
+                                                <th>Férőhely</th>
+                                                <th>Termelés/kör</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td>Gabona</td>
+                                                <td id="gazdasag_gabona_ferohely"></td>
+                                                <td id="gazdasag_gabona_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Agyag</td>
+                                                <td id="gazdasag_agyag_ferohely"></td>
+                                                <td id="gazdasag_agyag_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fa</td>
+                                                <td id="gazdasag_fa_ferohely"></td>
+                                                <td id="gazdasag_fa_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Kő</td>
+                                                <td id="gazdasag_ko_ferohely"></td>
+                                                <td id="gazdasag_ko_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fém</td>
+                                                <td id="gazdasag_fem_ferohely"></td>
+                                                <td id="gazdasag_fem_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Fegyver</td>
+                                                <td id="gazdasag_fegyver_ferohely"></td>
+                                                <td id="gazdasag_fegyver_termeles"></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Drágakő</td>
+                                                <td id="gazdasag_dragako_ferohely"></td>
+                                                <td id="gazdasag_dragako_termeles"></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p class="text-muted text-center">Készítette: Eszes Richárd @ 2014<br /><a href="https://github.com/richardeszes/hodito" target="_blank">Forráskód</a> | <a href="http://hodito.hu" target="_blank">Hódító</a></p>
+        </div>
+    </body>
+</html>
