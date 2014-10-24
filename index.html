@@ -8,6 +8,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="scripts/basedatasheet.js"></script>
+        <script src="scripts/fight.js"></script>
         <style>
             h3 {
                 cursor: pointer;
@@ -25,6 +26,11 @@
                 $(document).on("change", ".build", function (e) {recalculateBuild()});
             });
         </script>
+        <style>
+            .modal-dialog {
+                width: 80%;
+            }
+        </style>
         <div class="modal fade" id="csata_szimulalasa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -33,11 +39,210 @@
                         <h4 class="modal-title" id="myModalLabel">Csata szimulálása</h4>
                     </div>
                     <div class="modal-body">
-                        Hamarosan...
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <h3 id="csata_tamado">Támadó</h3>
+                                        <form role="form">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Katona</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_katona">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Védő</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_vedo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Támadó</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_tamado">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Íjász</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_ijasz">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Lovas</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_lovas">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Elit</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_elit">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Faj</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control" id="csata_tamado_faj">
+                                                            <option value="1">elf</option>
+                                                            <option value="2">ork</option>
+                                                            <option value="3">félelf</option>
+                                                            <option value="4">törpe</option>
+                                                            <option value="5">gnóm</option>
+                                                            <option value="6">óriás</option>
+                                                            <option value="7">élőhalott</option>
+                                                            <option value="8">ember</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Tudós</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_tamado_tudos" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Kat. morál</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_moral">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Szövetség tagja</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_tamado_szovetseg">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Erősebb támadása</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_tamado_erosebb">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Tábornok</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_tamado_tabornok">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Vérszomj</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_tamado_verszomj">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="col-sm-12">
+                                        <h3 id="csata_vedekezo">Védekező</h3>
+                                        <form role="form">
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Katona</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_katona">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Védő</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_vedo">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Támadó</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_tamado">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Íjász</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_ijasz">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Lovas</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_lovas">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Elit</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_elit">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-6">
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Faj</label>
+                                                    <div class="col-sm-12">
+                                                        <select class="form-control" id="csata_vedekezo_faj">
+                                                            <option value="1">elf</option>
+                                                            <option value="2">ork</option>
+                                                            <option value="3">félelf</option>
+                                                            <option value="4">törpe</option>
+                                                            <option value="5">gnóm</option>
+                                                            <option value="6">óriás</option>
+                                                            <option value="7">élőhalott</option>
+                                                            <option value="8">ember</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Tudós</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_vedekezo_tudos" disabled>
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Kat. morál</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_moral">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Szövetség tagja</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_vedekezo_szovetseg">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Össz. földterület</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_terulet">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Őrtornyok száma</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control" id="csata_vedekezo_ortornyok">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="epulet_ures" class="col-sm-12 control-label">Védelem</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="checkbox" id="csata_vedekezo_vedelem">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                        <!--button type="button" class="btn btn-primary">Save changes</button-->
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                        <button type="button" class="btn btn-primary" onclick="showFightResult();">Szimulálás</button>
                     </div>
                 </div>
             </div>
@@ -90,13 +295,13 @@
                             <div class="form-group">
                                     <label class="col-sm-3 control-label">Népesség</label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control" id="orszag_nepesseg" readonly>
+                                        <input type="text" class="form-control" id="orszag_nepesseg" readonly>
                                     </div>
                             </div>
                             <div class="form-group">
                                     <label class="col-sm-3 control-label">Foglalkoztatottság</label>
                                     <div class="col-sm-7">
-                                        <input type="email" class="form-control" id="orszag_foglalkoztatottsag" readonly>
+                                        <input type="text" class="form-control" id="orszag_foglalkoztatottsag" readonly>
                                     </div>
                             </div>
                         </form>
@@ -107,109 +312,109 @@
                             <div class="form-group">
                                 <label for="epulet_ures" class="col-sm-3 control-label">Üres</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_ures">
+                                    <input type="text" class="form-control eco build" id="epulet_ures">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_haz" class="col-sm-3 control-label">Ház</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_haz">
+                                    <input type="text" class="form-control eco build" id="epulet_haz">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_barakk" class="col-sm-3 control-label">Barakk</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control army eco build" id="epulet_barakk">
+                                    <input type="text" class="form-control army eco build" id="epulet_barakk">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kovacsmuhely" class="col-sm-3 control-label">Kovácsműhely</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_kovacsmuhely">
+                                    <input type="text" class="form-control eco build" id="epulet_kovacsmuhely">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_tanya" class="col-sm-3 control-label">Tanya</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_tanya">
+                                    <input type="text" class="form-control eco build" id="epulet_tanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_konyvtar" class="col-sm-3 control-label">Könyvtár</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control build" id="epulet_konyvtar">
+                                    <input type="text" class="form-control build" id="epulet_konyvtar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_raktar" class="col-sm-3 control-label">Raktár</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_raktar">
+                                    <input type="text" class="form-control eco build" id="epulet_raktar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_fatelep" class="col-sm-3 control-label">Fatelep</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_fatelep">
+                                    <input type="text" class="form-control eco build" id="epulet_fatelep">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kobanya" class="col-sm-3 control-label">Kőbánya</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_kobanya">
+                                    <input type="text" class="form-control eco build" id="epulet_kobanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_fembanya" class="col-sm-3 control-label">Fémbánya</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_fembanya">
+                                    <input type="text" class="form-control eco build" id="epulet_fembanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_agyagbanya" class="col-sm-3 control-label">Agyagbánya</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_agyagbanya">
+                                    <input type="text" class="form-control eco build" id="epulet_agyagbanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_dragakobanya" class="col-sm-3 control-label">Drágakőbánya</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco build" id="epulet_dragakobanya">
+                                    <input type="text" class="form-control eco build" id="epulet_dragakobanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_ortorony" class="col-sm-3 control-label">Őrtorony</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control army build" id="epulet_ortorony">
+                                    <input type="text" class="form-control army build" id="epulet_ortorony">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kocsma" class="col-sm-3 control-label">Kocsma</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control army build" id="epulet_kocsma">
+                                    <input type="text" class="form-control army build" id="epulet_kocsma">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_templom" class="col-sm-3 control-label">Templom</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control army build" id="epulet_templom">
+                                    <input type="text" class="form-control army build" id="epulet_templom">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_korhaz" class="col-sm-3 control-label">Kórház</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control build" id="epulet_korhaz">
+                                    <input type="text" class="form-control build" id="epulet_korhaz">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_piac" class="col-sm-3 control-label">Piac</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control build" id="epulet_piac">
+                                    <input type="text" class="form-control build" id="epulet_piac">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_bank" class="col-sm-3 control-label">Bank</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control build" id="epulet_bank">
+                                    <input type="text" class="form-control build" id="epulet_bank">
                                 </div>
                             </div>
                         </form>
@@ -221,49 +426,49 @@
                             <div class="form-group">
                                 <label for="tudomany_ipar" class="col-sm-3 control-label">Ipar</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_ipar">
+                                    <input type="text" class="form-control" id="tudomany_ipar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_gazdasag" class="col-sm-3 control-label">Gazdaság</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_gazdasag">
+                                    <input type="text" class="form-control" id="tudomany_gazdasag">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_mezogazdasag" class="col-sm-3 control-label">Mezőgazdaság</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control eco" id="tudomany_mezogazdasag">
+                                    <input type="text" class="form-control eco" id="tudomany_mezogazdasag">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_lakashelyzet" class="col-sm-3 control-label">Lakáshelyzet</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control army" id="tudomany_lakashelyzet">
+                                    <input type="text" class="form-control army" id="tudomany_lakashelyzet">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_banyaszat" class="col-sm-3 control-label">Bányászat</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_banyaszat">
+                                    <input type="text" class="form-control" id="tudomany_banyaszat">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_hadugy" class="col-sm-3 control-label">Hadügy</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_hadugy">
+                                    <input type="text" class="form-control" id="tudomany_hadugy">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_magia" class="col-sm-3 control-label">Mágia</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_magia">
+                                    <input type="text" class="form-control" id="tudomany_magia">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_tolvajlas" class="col-sm-3 control-label">Tolvajlás</label>
                                 <div class="col-sm-2">
-                                    <input type="email" class="form-control" id="tudomany_tolvajlas">
+                                    <input type="text" class="form-control" id="tudomany_tolvajlas">
                                 </div>
                             </div>
                         </form>
