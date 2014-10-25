@@ -1,21 +1,10 @@
 /* Támadó értékek */
-var tamado_katona = 1;
-var tamado_vedo = 0;
-var tamado_tamado = 4;
-var tamado_ijasz = 2;
-var tamado_lovas = 6;
-var tamado_elit = 5;
+var tamado = {katona:1, vedo:0, tamado:4, ijasz:2, lovas:6, elit:5};
 var tabornokok_bonusz = [0, 0.03, 0.05, 0.06, 0.07, 0.08, 0.1, 0.2];
 var erosebb_szorzo = 0.1;
 
 /* Védő értékek */
-var vedo_katona = 1;
-var vedo_vedo = 4;
-var vedo_tamado = 0;
-var vedo_ijasz = 6;
-var vedo_toronyij = 12;
-var vedo_lovas = 2;
-var vedo_elit = 5;
+var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, toronyij:12, lovas:2, elit:5};
 
 var mf_szorzo = 0.4;
 var vedelem_szorzo = 0.3;
@@ -33,11 +22,11 @@ function calculateDefPoints() {
     var lovas = parseInt(0+$('#csata_vedekezo_lovas').val());
     var elit = parseInt(0+$('#csata_vedekezo_elit').val());
     /* Katonák pontjai */
-    var points = katona * window.vedo_katona;
-    points += vedo * window.vedo_vedo;
-    points += tamado * window.vedo_tamado;
-    points += lovas * window.vedo_lovas;
-    points += elit * window.vedo_elit;
+    var points = katona * window.vedo.katona;
+    points += vedo * window.vedo.vedo;
+    points += tamado * window.vedo.tamado;
+    points += lovas * window.vedo.lovas;
+    points += elit * window.vedo.elit;
     /* Toronyíjászok pontjai */
     if ((ortornyok*40) < ijasz) {
         var toronyij = ortornyok*40;
@@ -46,15 +35,26 @@ function calculateDefPoints() {
         var toronyij = ijasz;
         ijasz = 0;
     }
-    points += ijasz * window.vedo_ijasz;
-    points += toronyij * window.vedo_toronyij;
+    points += ijasz * window.vedo.ijasz;
+    points += toronyij * window.vedo.toronyij;
+    if (moral==0) {
+        moral = 100;
+    }
     points = points * (moral/100);
     /* Tornyok pontjai */
     if (faj==5) {
         // gnóm
-        var ortorony_szorzo = ((terulet/ortornyok)/100)*3;
+        if (terulet==0 || ortornyok==0) {
+            var ortorony_szorzo = 0;
+        } else {
+            var ortorony_szorzo = ((terulet/ortornyok)/100)*3;
+        }
     } else {
-        var ortorony_szorzo = ((terulet/ortornyok)/100)*2;
+        if (terulet==0 || ortornyok==0) {
+            var ortorony_szorzo = 0;
+        } else {
+            var ortorony_szorzo = ((terulet/ortornyok)/100)*2;
+        }
     }
     if (ortorony_szorzo > 0.3) {
         ortorony_szorzo = 0.3;
@@ -121,13 +121,19 @@ function calculateAttPoints() {
     var elit = parseInt(0+$('#csata_tamado_elit').val());
     var tabornok = parseInt(0+$('#csata_tamado_tabornok').val());
     /* Katonák pontjai */
-    var points = katona * window.tamado_katona;
-    points += vedo * window.tamado_vedo;
-    points += tamado * window.tamado_tamado;
-    points += ijasz * window.tamado_ijasz;
-    points += lovas * window.tamado_lovas;
-    points += elit * window.tamado_elit;
+    var points = katona * window.tamado.katona;
+    points += vedo * window.tamado.vedo;
+    points += tamado * window.tamado.tamado;
+    points += ijasz * window.tamado.ijasz;
+    points += lovas * window.tamado.lovas;
+    points += elit * window.tamado.elit;
+    if (moral==0) {
+        moral = 100;
+    }
     points = points * (moral/100);
+    if (tabornok==0) {
+        tabornok = 1;
+    }
     var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok];
     /* Erősebb megtámadásáért járó bónusz */
     var erosebb_bonusz = 0;
