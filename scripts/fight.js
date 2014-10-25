@@ -23,7 +23,6 @@ var verszomj_szorzo = 0.3;
 
 function calculateDefPoints() {
     var faj = $('#csata_vedekezo_faj').val();
-    var szemelyiseg = $('#csata_vedekezo_tudos').val();
     var terulet = parseInt(0+$('#csata_vedekezo_terulet').val());
     var ortornyok = parseInt(0+$('#csata_vedekezo_ortornyok').val());
     var moral = parseInt(0+$('#csata_vedekezo_moral').val());
@@ -82,29 +81,27 @@ function calculateDefPoints() {
     }
     /* Tudomány bónusz */
     var tudomany_bonusz = 0;
-    if ($('#csata_vedekezo_tudos').is(':checked')) {
-        var tudomany_szorzo = window.tudomany_alap;
-        if (faj==1) {
-            // elf
-            tudomany_szorzo =  40;
-        } else if (faj==2) {
-            // ork
-            tudomany_szorzo = 40;
-        } else if (faj==4) {
-            // törpe
-            tudomany_szorzo = 40;
-        } else if (faj==5) {
-            // gnóm
-            tudomany_szorzo = 50;
-        } else if (faj==7) {
-            tudomany_szorzo = 0;
-        }
-        if (szemelyiseg==8) {
-            // tudós
-            tudomany_szorzo += 5;
-        }
-        tudomany_bonusz = points * (tudomany_szorzo/100);
+    var tudomany_szorzo = window.tudomany_alap;
+    if (faj==1) {
+        // elf
+        tudomany_szorzo =  40;
+    } else if (faj==2) {
+        // ork
+        tudomany_szorzo = 40;
+    } else if (faj==4) {
+        // törpe
+        tudomany_szorzo = 40;
+    } else if (faj==5) {
+        // gnóm
+        tudomany_szorzo = 50;
+    } else if (faj==7) {
+        tudomany_szorzo = 0;
     }
+    if ($('#csata_vedekezo_tudos').is(':checked')) {
+        // tudós
+        tudomany_szorzo += 5;
+    }
+    tudomany_bonusz = points * (tudomany_szorzo/100);
     points += tudomany_bonusz;
     points += faji_bonusz;
     points += mf_bonusz;
@@ -115,7 +112,6 @@ function calculateDefPoints() {
 
 function calculateAttPoints() {
     var faj = $('#csata_tamado_faj').val();
-    var szemelyiseg = $('#csata_tamado_tudos').val();
     var moral = parseInt(0+$('#csata_tamado_moral').val());
     var katona = parseInt(0+$('#csata_tamado_katona').val());
     var vedo = parseInt(0+$('#csata_tamado_vedo').val());
@@ -162,29 +158,27 @@ function calculateAttPoints() {
     }
     /* Tudomány bónusz */
     var tudomany_bonusz = 0;
-    if ($('#csata_tamado_tudos').is(':checked')) {
-        var tudomany_szorzo = window.tudomany_alap;
-        if (faj==1) {
-            // elf
-            tudomany_szorzo =  40;
-        } else if (faj==2) {
-            // ork
-            tudomany_szorzo = 40;
-        } else if (faj==4) {
-            // törpe
-            tudomany_szorzo = 40;
-        } else if (faj==5) {
-            // gnóm
-            tudomany_szorzo = 50;
-        } else if (faj==7) {
-            tudomany_szorzo = 0;
-        }
-        if (szemelyiseg==8) {
-            // tudós
-            tudomany_szorzo += 5;
-        }
-        tudomany_bonusz = points * (tudomany_szorzo/100);
+    var tudomany_szorzo = window.tudomany_alap;
+    if (faj==1) {
+        // elf
+        tudomany_szorzo =  40;
+    } else if (faj==2) {
+        // ork
+        tudomany_szorzo = 40;
+    } else if (faj==4) {
+        // törpe
+        tudomany_szorzo = 40;
+    } else if (faj==5) {
+        // gnóm
+        tudomany_szorzo = 50;
+    } else if (faj==7) {
+        tudomany_szorzo = 0;
     }
+    if ($('#csata_tamado_tudos').is(':checked')) {
+        // tudós
+        tudomany_szorzo += 5;
+    }
+    tudomany_bonusz = points * (tudomany_szorzo/100);
     points += tudomany_bonusz;
     points += faji_bonusz;
     points -= faji_malusz;
@@ -198,6 +192,8 @@ function calculateAttPoints() {
 function showFightResult() {
     $("#csata_vedekezo").html("Védekező");
     $("#csata_tamado").html("Támadó");
+    $("#csata_vedekezo").css("color", "");
+    $("#csata_tamado").css("color", "");
     var def = parseInt(calculateDefPoints());
     var att = parseInt(calculateAttPoints());
     if (def > att) {
