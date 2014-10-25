@@ -23,6 +23,7 @@ var verszomj_szorzo = 0.3;
 
 function calculateDefPoints() {
     var faj = $('#csata_vedekezo_faj').val();
+    var szemelyiseg = $('#csata_vedekezo_tudos').val();
     var terulet = parseInt(0+$('#csata_vedekezo_terulet').val());
     var ortornyok = parseInt(0+$('#csata_vedekezo_ortornyok').val());
     var moral = parseInt(0+$('#csata_vedekezo_moral').val());
@@ -114,6 +115,7 @@ function calculateDefPoints() {
 
 function calculateAttPoints() {
     var faj = $('#csata_tamado_faj').val();
+    var szemelyiseg = $('#csata_tamado_tudos').val();
     var moral = parseInt(0+$('#csata_tamado_moral').val());
     var katona = parseInt(0+$('#csata_tamado_katona').val());
     var vedo = parseInt(0+$('#csata_tamado_vedo').val());
