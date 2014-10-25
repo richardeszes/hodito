@@ -50,7 +50,12 @@ function calculateDefPoints() {
     points += toronyij * window.vedo_toronyij;
     points = points * (moral/100);
     /* Tornyok pontjai */
-    var ortorony_szorzo = (terulet/ortornyok)/100;
+    if (faj==5) {
+        // gnóm
+        var ortorony_szorzo = ((terulet/ortornyok)/100)*3;
+    } else {
+        var ortorony_szorzo = ((terulet/ortornyok)/100)*2;
+    }
     if (ortorony_szorzo > 0.3) {
         ortorony_szorzo = 0.3;
     }
