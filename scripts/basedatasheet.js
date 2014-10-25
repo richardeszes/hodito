@@ -178,40 +178,40 @@ function recalculateEco() {
     var gabona = tanya * window.tanya_szorzo * mezogazdasag;
     if (faj==1) {
         // elf
-        gabona = parseInt(gabona * 1.3);
-        fa = parseInt(fa * 0.7);
-        ko = parseInt(ko * 0.7);
-        fem = parseInt(fem * 0.7);
-        agyag = parseInt(agyag * 0.7);
-        dragako = parseInt(dragako * 0.7);
+        gabona = gabona * 1.3;
+        fa = fa * 0.7;
+        ko = ko * 0.7;
+        fem = fem * 0.7;
+        agyag = agyag * 0.7;
+        dragako = dragako * 0.7;
     } else if (faj==4) {
         // törpe
-        fa = parseInt(fa * 2);
-        ko = parseInt(ko * 2);
-        fem = parseInt(fem * 2);
-        agyag = parseInt(agyag * 2);
-        dragako = parseInt(dragako * 2);
-        fegyver = parseInt(fegyver * 2);
+        fa = fa * 2;
+        ko = ko * 2;
+        fem = fem * 2;
+        agyag = agyag * 2;
+        dragako = dragako * 2;
+        fegyver = fegyver * 2;
     } else if (faj==6) {
         // óriás
-        gabona = parseInt(gabona * 1.2);
+        gabona = gabona * 1.2;
     }
     if (szemelyiseg==7) {
         // gazdálkodó
-        gabona = parseInt(gabona * 1.1);
-        fa = parseInt(fa * 1.1);
-        ko = parseInt(ko * 1.1);
-        fem = parseInt(fem * 1.1);
-        agyag = parseInt(agyag * 1.1);
-        dragako = parseInt(dragako * 1.1);
+        gabona = gabona * 1.1;
+        fa = fa * 1.1;
+        ko = ko * 1.1;
+        fem = fem * 1.1;
+        agyag = agyag * 1.1;
+        dragako = dragako * 1.1;
     }
-    $('#gazdasag_fa_termeles').html(fa);
-    $('#gazdasag_ko_termeles').html(ko);
-    $('#gazdasag_fem_termeles').html(fem);
-    $('#gazdasag_agyag_termeles').html(agyag);
-    $('#gazdasag_dragako_termeles').html(dragako);
-    $('#gazdasag_fegyver_termeles').html(fegyver);
-    $('#gazdasag_gabona_termeles').html(gabona);
+    $('#gazdasag_fa_termeles').html(parseInt(fa));
+    $('#gazdasag_ko_termeles').html(parseInt(ko));
+    $('#gazdasag_fem_termeles').html(parseInt(fem));
+    $('#gazdasag_agyag_termeles').html(parseInt(agyag));
+    $('#gazdasag_dragako_termeles').html(parseInt(dragako));
+    $('#gazdasag_fegyver_termeles').html(parseInt(fegyver));
+    $('#gazdasag_gabona_termeles').html(parseInt(gabona));
     /* Férőhelyek */
     var r_fa = raktar * window.raktar_nyersanyag_szorzo;
     var r_ko = raktar * window.raktar_nyersanyag_szorzo;
@@ -222,30 +222,30 @@ function recalculateEco() {
     var r_gabona = raktar * window.raktar_gabona_szorzo;
     if (faj==4) {
         // törpe
-        r_fa = parseInt(r_fa * 1.5);
-        r_ko = parseInt(r_ko * 1.5);
-        r_fem = parseInt(r_fem * 1.5);
-        r_agyag = parseInt(r_agyag * 1.5);
-        r_dragako = parseInt(r_dragako * 1.5);
-        r_fegyver = parseInt(r_fegyver * 1.5);
-        r_gabona = parseInt(r_gabona * 1.5);
+        r_fa = r_fa * 1.5;
+        r_ko = r_ko * 1.5;
+        r_fem = r_fem * 1.5;
+        r_agyag = r_agyag * 1.5;
+        r_dragako = r_dragako * 1.5;
+        r_fegyver = r_fegyver * 1.5;
+        r_gabona = r_gabona * 1.5;
     } else if (faj==5) {
         // gnóm
-        r_fa = parseInt(r_fa * 0.9);
-        r_ko = parseInt(r_ko * 0.9);
-        r_fem = parseInt(r_fem * 0.9);
-        r_agyag = parseInt(r_agyag * 0.9);
-        r_dragako = parseInt(r_dragako * 0.9);
-        r_fegyver = parseInt(r_fegyver * 0.9);
-        r_gabona = parseInt(r_gabona * 0.9);
+        r_fa = r_fa * 0.9;
+        r_ko = r_ko * 0.9;
+        r_fem = r_fem * 0.9;
+        r_agyag = r_agyag * 0.9;
+        r_dragako = r_dragako * 0.9;
+        r_fegyver = r_fegyver * 0.9;
+        r_gabona = r_gabona * 0.9;
     }
-    $('#gazdasag_fa_ferohely').html(r_fa);
-    $('#gazdasag_ko_ferohely').html(r_ko);
-    $('#gazdasag_fem_ferohely').html(r_fem);
-    $('#gazdasag_agyag_ferohely').html(r_agyag);
-    $('#gazdasag_dragako_ferohely').html(r_dragako);
-    $('#gazdasag_fegyver_ferohely').html(r_fegyver);
-    $('#gazdasag_gabona_ferohely').html(r_gabona);
+    $('#gazdasag_fa_ferohely').html(parseInt(r_fa));
+    $('#gazdasag_ko_ferohely').html(parseInt(r_ko));
+    $('#gazdasag_fem_ferohely').html(parseInt(r_fem));
+    $('#gazdasag_agyag_ferohely').html(parseInt(r_agyag));
+    $('#gazdasag_dragako_ferohely').html(parseInt(r_dragako));
+    $('#gazdasag_fegyver_ferohely').html(parseInt(r_fegyver));
+    $('#gazdasag_gabona_ferohely').html(parseInt(r_gabona));
     /* Lakosság */
     var haz = $("#epulet_haz").val();
     var ures = $("#epulet_ures").val();
