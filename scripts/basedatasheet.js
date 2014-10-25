@@ -253,9 +253,9 @@ function recalculateEco() {
     var lakossag = ((haz * window.haz_szorzo) + (ures * window.ures_szorzo)) * lakashelyzet;
     if (faj==4) {
         // törpe
-        lakossag = parseInt(lakossag * 1.2);
+        lakossag = lakossag * 1.2;
     }
-    $("#orszag_nepesseg").val(lakossag);
+    $("#orszag_nepesseg").val(parseInt(lakossag));
     var emberszukseglet = parseInt(0+$("#epulet_haz").val());
     emberszukseglet += parseInt(0+$("#epulet_barakk").val());
     emberszukseglet += parseInt(0+$("#epulet_kovacsmuhely").val());
@@ -286,10 +286,10 @@ function recalculateEco() {
     }
     $('#gazdasag_gabona_szukseglet').html(gabona_szukseglet);
     if (gabona_szukseglet < gabona) {
-        $('#gazdasag_gabona_egyenleg').html("<span style='color: green;'>+"+(gabona-gabona_szukseglet)+"</span>");
+        $('#gazdasag_gabona_egyenleg').html("<span style='color: green;'>+"+parseInt(gabona-gabona_szukseglet)+"</span>");
     } else {
         var gabona_tartalek = parseInt(r_gabona/gabona_szukseglet);
-        $('#gazdasag_gabona_egyenleg').html("<span style='color: red;'>"+gabona_tartalek+" körre elegendő!</span>");
+        $('#gazdasag_gabona_egyenleg').html("<span style='color: red;'>"+parseInt(gabona_tartalek)+" körre elegendő!</span>");
     }
 }
 
