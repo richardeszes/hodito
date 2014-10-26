@@ -130,16 +130,13 @@ function checkSciMax(setmax) {
 /* Hadsereg mutatóinak újraszámítása */
 function recalculateArmy() {
     checkSciMax(false);
+    var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
-    var barakk = $('#epulet_barakk').val();
-    var torony = $('#epulet_ortorony').val();
-    var templom = $('#epulet_templom').val();
-    var kocsma = $('#epulet_kocsma').val();
     var lakashelyzet = 1.0+($('#tudomany_lakashelyzet').val()/100);
-    var katonak = barakk * window.barakk_hely * lakashelyzet;
-    var ijaszok = torony * window.barakk_hely * lakashelyzet;
-    var varazslok = templom * window.templom_hely * lakashelyzet;
-    var tolvajok = kocsma * window.kocsma_hely * lakashelyzet;
+    var katonak = epuletek.barakk * window.barakk_hely * lakashelyzet;
+    var ijaszok = epuletek.ortorony * window.barakk_hely * lakashelyzet;
+    var varazslok = epuletek.templom * window.templom_hely * lakashelyzet;
+    var tolvajok = epuletek.kocsma * window.kocsma_hely * lakashelyzet;
     if (faj==4) {
         // törpe
         katonak = katonak * 1.2;
@@ -156,26 +153,19 @@ function recalculateArmy() {
 /* Gazdasági mutatók újraszámítása */
 function recalculateEco() {
     checkSciMax(false);
+    var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
     var szemelyiseg = $('#orszag_szemelyiseg').val();
-    var fatelep = $('#epulet_fatelep').val();
-    var kobanya = $('#epulet_kobanya').val();
-    var fembanya = $('#epulet_fembanya').val();
-    var agyagbanya = $('#epulet_agyagbanya').val();
-    var dragakobanya = $('#epulet_dragakobanya').val();
-    var kovacsmuhely = $('#epulet_kovacsmuhely').val();
-    var tanya = $('#epulet_tanya').val();
-    var raktar = $('#epulet_raktar').val();
     var banyaszat = 1.0+($('#tudomany_banyaszat').val()/100);
     var mezogazdasag = 1.0+($('#tudomany_mezogazdasag').val()/100);
     /* Termelés */
-    var fa = fatelep * window.banya_szorzo * banyaszat;
-    var ko = kobanya * window.banya_szorzo * banyaszat;
-    var fem = fembanya * window.banya_szorzo * banyaszat;
-    var agyag = agyagbanya * window.banya_szorzo * banyaszat;
-    var dragako = dragakobanya * window.banya_szorzo * banyaszat;
-    var fegyver = kovacsmuhely * window.fegyver_szorzo;
-    var gabona = tanya * window.tanya_szorzo * mezogazdasag;
+    var fa = epuletek.fatelep * window.banya_szorzo * banyaszat;
+    var ko = epuletek.kobanya * window.banya_szorzo * banyaszat;
+    var fem = epuletek.fembanya * window.banya_szorzo * banyaszat;
+    var agyag = epuletek.agyagbanya * window.banya_szorzo * banyaszat;
+    var dragako = epuletek.dragakobanya * window.banya_szorzo * banyaszat;
+    var fegyver = epuletek.kovacsmuhely * window.fegyver_szorzo;
+    var gabona = epuletek.tanya * window.tanya_szorzo * mezogazdasag;
     if (faj==1) {
         // elf
         gabona = gabona * 1.3;
@@ -213,13 +203,13 @@ function recalculateEco() {
     $('#gazdasag_fegyver_termeles').html(parseInt(fegyver));
     $('#gazdasag_gabona_termeles').html(parseInt(gabona));
     /* Férőhelyek */
-    var r_fa = raktar * window.raktar_nyersanyag_szorzo;
-    var r_ko = raktar * window.raktar_nyersanyag_szorzo;
-    var r_fem = raktar * window.raktar_nyersanyag_szorzo;
-    var r_agyag = raktar * window.raktar_nyersanyag_szorzo;
-    var r_dragako = raktar * window.raktar_nyersanyag_szorzo;
-    var r_fegyver = raktar * window.raktar_fegyver_szorzo;
-    var r_gabona = raktar * window.raktar_gabona_szorzo;
+    var r_fa = epuletek.raktar * window.raktar_nyersanyag_szorzo;
+    var r_ko = epuletek.raktar * window.raktar_nyersanyag_szorzo;
+    var r_fem = epuletek.raktar * window.raktar_nyersanyag_szorzo;
+    var r_agyag = epuletek.raktar * window.raktar_nyersanyag_szorzo;
+    var r_dragako = epuletek.raktar * window.raktar_nyersanyag_szorzo;
+    var r_fegyver = epuletek.raktar * window.raktar_fegyver_szorzo;
+    var r_gabona = epuletek.raktar * window.raktar_gabona_szorzo;
     if (faj==4) {
         // törpe
         r_fa = r_fa * 1.5;
@@ -247,33 +237,31 @@ function recalculateEco() {
     $('#gazdasag_fegyver_ferohely').html(parseInt(r_fegyver));
     $('#gazdasag_gabona_ferohely').html(parseInt(r_gabona));
     /* Lakosság */
-    var haz = $("#epulet_haz").val();
-    var ures = $("#epulet_ures").val();
     var lakashelyzet = 1.0+($('#tudomany_lakashelyzet').val()/100);
-    var lakossag = ((haz * window.haz_szorzo) + (ures * window.ures_szorzo)) * lakashelyzet;
+    var lakossag = ((epuletek.haz * window.haz_szorzo) + (epuletek.ures * window.ures_szorzo)) * lakashelyzet;
     if (faj==4) {
         // törpe
         lakossag = lakossag * 1.2;
     }
     $("#orszag_nepesseg").val(parseInt(lakossag));
-    var emberszukseglet = parseInt(0+$("#epulet_haz").val());
-    emberszukseglet += parseInt(0+$("#epulet_barakk").val());
-    emberszukseglet += parseInt(0+$("#epulet_kovacsmuhely").val());
-    emberszukseglet += parseInt(0+$("#epulet_tanya").val());
-    emberszukseglet += parseInt(0+$("#epulet_konyvtar").val());
-    emberszukseglet += parseInt(0+$("#epulet_raktar").val());
-    emberszukseglet += parseInt(0+$("#epulet_fatelep").val());
-    emberszukseglet += parseInt(0+$("#epulet_kobanya").val());
-    emberszukseglet += parseInt(0+$("#epulet_fembanya").val());
-    emberszukseglet += parseInt(0+$("#epulet_agyagbanya").val());
-    emberszukseglet += parseInt(0+$("#epulet_dragakobanya").val());
-    emberszukseglet += parseInt(0+$("#epulet_ortorony").val());
-    emberszukseglet += parseInt(0+$("#epulet_kocsma").val());
-    emberszukseglet += parseInt(0+$("#epulet_templom").val());
-    emberszukseglet += parseInt(0+$("#epulet_korhaz").val());
-    emberszukseglet += parseInt(0+$("#epulet_bank").val());
+    var emberszukseglet = epuletek.haz;
+    emberszukseglet += epuletek.barakk;
+    emberszukseglet += epuletek.kovacsmuhely;
+    emberszukseglet += epuletek.tanya;
+    emberszukseglet += epuletek.konyvtar;
+    emberszukseglet += epuletek.raktar;
+    emberszukseglet += epuletek.fatelep;
+    emberszukseglet += epuletek.kobanya;
+    emberszukseglet += epuletek.fembanya;
+    emberszukseglet += epuletek.agyagbanya;
+    emberszukseglet += epuletek.dragakobanya;
+    emberszukseglet += epuletek.ortorony;
+    emberszukseglet += epuletek.kocsma;
+    emberszukseglet += epuletek.templom;
+    emberszukseglet += epuletek.korhaz;
+    emberszukseglet += epuletek.bank;
     emberszukseglet = emberszukseglet * window.ember;
-    emberszukseglet += parseInt(0+$("#epulet_piac").val()) * window.piac_ember;
+    emberszukseglet += epuletek.piac * window.piac_ember;
     var foglalkoztatottsag = emberszukseglet/(lakossag/100);
     $("#orszag_foglalkoztatottsag").val(foglalkoztatottsag.toFixed(2)+"%");
     /* Gabona egyenleg */
@@ -292,27 +280,27 @@ function recalculateEco() {
         $('#gazdasag_gabona_egyenleg').html("<span style='color: red;'>"+parseInt(gabona_tartalek)+" körre elegendő!</span>");
     }
     /* Érték */
-    var ertek = parseInt(0+$("#epulet_haz").val());
-    ertek += parseInt(0+$("#epulet_barakk").val());
-    ertek += parseInt(0+$("#epulet_kovacsmuhely").val());
-    ertek += parseInt(0+$("#epulet_tanya").val());
-    ertek += parseInt(0+$("#epulet_konyvtar").val());
-    ertek += parseInt(0+$("#epulet_raktar").val());
-    ertek += parseInt(0+$("#epulet_fatelep").val());
-    ertek += parseInt(0+$("#epulet_kobanya").val());
-    ertek += parseInt(0+$("#epulet_fembanya").val());
-    ertek += parseInt(0+$("#epulet_agyagbanya").val());
-    ertek += parseInt(0+$("#epulet_dragakobanya").val());
-    ertek += parseInt(0+$("#epulet_ortorony").val());
-    ertek += parseInt(0+$("#epulet_kocsma").val());
-    ertek += parseInt(0+$("#epulet_templom").val());
-    ertek += parseInt(0+$("#epulet_korhaz").val());
-    ertek += parseInt(0+$("#epulet_bank").val());
-    ertek += parseInt(0+$("#epulet_piac").val());
+    var ertek = epuletek.haz;
+    ertek += epuletek.barakk;
+    ertek += epuletek.kovacsmuhely;
+    ertek += epuletek.tanya;
+    ertek += epuletek.konyvtar;
+    ertek += epuletek.raktar;
+    ertek += epuletek.fatelep;
+    ertek += epuletek.kobanya;
+    ertek += epuletek.fembanya;
+    ertek += epuletek.agyagbanya;
+    ertek += epuletek.dragakobanya;
+    ertek += epuletek.ortorony;
+    ertek += epuletek.kocsma;
+    ertek += epuletek.templom;
+    ertek += epuletek.korhaz;
+    ertek += epuletek.bank;
+    ertek += epuletek.piac;
     ertek = ertek * 45;
-    ertek += parseInt(0+$("#epulet_ures").val())*30;
-    if (lakossag>getBuildsCount()) {
-        ertek += parseInt(0+$('#epulet_osszeg').html());
+    ertek += epuletek.ures*30;
+    if (lakossag>(getBuildsCount()*70)) {
+        ertek += getBuildsCount()*70;
     } else {
         ertek += lakossag;
     }
@@ -342,9 +330,8 @@ function getBuildsCount() {
     return epuletek;
 }
 
-/* Épületek arányának kiszámítása */
-function recalculateBuildShare() {
-    var terulet = getBuildsCount();
+/* Épületek listájának beszerzése */
+function getBuilds() {
     var ures = parseInt(0+$('#epulet_ures').val());
     var haz = parseInt(0+$('#epulet_haz').val());
     var barakk = parseInt(0+$('#epulet_barakk').val());
@@ -363,24 +350,36 @@ function recalculateBuildShare() {
     var korhaz = parseInt(0+$('#epulet_korhaz').val());
     var bank = parseInt(0+$('#epulet_bank').val());
     var piac = parseInt(0+$('#epulet_piac').val());
-    $('#epulet_ures_arany').html('('+parseInt(ures/(terulet/100))+'%)');
-    $('#epulet_haz_arany').html('('+parseInt(haz/(terulet/100))+'%)');
-    $('#epulet_barakk_arany').html('('+parseInt(barakk/(terulet/100))+'%)');
-    $('#epulet_kovacsmuhely_arany').html('('+parseInt(kovacsmuhely/(terulet/100))+'%)');
-    $('#epulet_tanya_arany').html('('+parseInt(tanya/(terulet/100))+'%)');
-    $('#epulet_konyvtar_arany').html('('+parseInt(konyvtar/(terulet/100))+'%)');
-    $('#epulet_raktar_arany').html('('+parseInt(raktar/(terulet/100))+'%)');
-    $('#epulet_fatelep_arany').html('('+parseInt(fatelep/(terulet/100))+'%)');
-    $('#epulet_kobanya_arany').html('('+parseInt(kobanya/(terulet/100))+'%)');
-    $('#epulet_fembanya_arany').html('('+parseInt(fembanya/(terulet/100))+'%)');
-    $('#epulet_agyagbanya_arany').html('('+parseInt(agyagbanya/(terulet/100))+'%)');
-    $('#epulet_dragakobanya_arany').html('('+parseInt(dragakobanya/(terulet/100))+'%)');
-    $('#epulet_ortorony_arany').html('('+parseInt(ortorony/(terulet/100))+'%)');
-    $('#epulet_kocsma_arany').html('('+parseInt(kocsma/(terulet/100))+'%)');
-    $('#epulet_templom_arany').html('('+parseInt(templom/(terulet/100))+'%)');
-    $('#epulet_korhaz_arany').html('('+parseInt(korhaz/(terulet/100))+'%)');
-    $('#epulet_bank_arany').html('('+parseInt(bank/(terulet/100))+'%)');
-    $('#epulet_piac_arany').html('('+parseInt(piac/(terulet/100))+'%)');
+    var epuletek = {ures:ures, haz:haz, barakk:barakk, kovacsmuhely:kovacsmuhely,
+        tanya:tanya, konyvtar:konyvtar, raktar:raktar, fatelep:fatelep,
+        kobanya:kobanya, fembanya:fembanya, agyagbanya:agyagbanya,
+        dragakobanya:dragakobanya, ortorony:ortorony, kocsma:kocsma, templom:templom,
+        korhaz:korhaz, bank:bank, piac:piac};
+    return epuletek;
+}
+
+/* Épületek arányának kiszámítása */
+function recalculateBuildShare() {
+    var terulet = getBuildsCount();
+    var epuletek = getBuilds();
+    $('#epulet_ures_arany').html('('+parseInt(epuletek.ures/(terulet/100))+'%)');
+    $('#epulet_haz_arany').html('('+parseInt(epuletek.haz/(terulet/100))+'%)');
+    $('#epulet_barakk_arany').html('('+parseInt(epuletek.barakk/(terulet/100))+'%)');
+    $('#epulet_kovacsmuhely_arany').html('('+parseInt(epuletek.kovacsmuhely/(terulet/100))+'%)');
+    $('#epulet_tanya_arany').html('('+parseInt(epuletek.tanya/(terulet/100))+'%)');
+    $('#epulet_konyvtar_arany').html('('+parseInt(epuletek.konyvtar/(terulet/100))+'%)');
+    $('#epulet_raktar_arany').html('('+parseInt(epuletek.raktar/(terulet/100))+'%)');
+    $('#epulet_fatelep_arany').html('('+parseInt(epuletek.fatelep/(terulet/100))+'%)');
+    $('#epulet_kobanya_arany').html('('+parseInt(epuletek.kobanya/(terulet/100))+'%)');
+    $('#epulet_fembanya_arany').html('('+parseInt(epuletek.fembanya/(terulet/100))+'%)');
+    $('#epulet_agyagbanya_arany').html('('+parseInt(epuletek.agyagbanya/(terulet/100))+'%)');
+    $('#epulet_dragakobanya_arany').html('('+parseInt(epuletek.dragakobanya/(terulet/100))+'%)');
+    $('#epulet_ortorony_arany').html('('+parseInt(epuletek.ortorony/(terulet/100))+'%)');
+    $('#epulet_kocsma_arany').html('('+parseInt(epuletek.kocsma/(terulet/100))+'%)');
+    $('#epulet_templom_arany').html('('+parseInt(epuletek.templom/(terulet/100))+'%)');
+    $('#epulet_korhaz_arany').html('('+parseInt(epuletek.korhaz/(terulet/100))+'%)');
+    $('#epulet_bank_arany').html('('+parseInt(epuletek.bank/(terulet/100))+'%)');
+    $('#epulet_piac_arany').html('('+parseInt(epuletek.piac/(terulet/100))+'%)');
     if (terulet==0) {
         $('#epulet_osszeg').html('');
     } else {
