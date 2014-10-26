@@ -23,12 +23,16 @@
                 });
                 $(document).on("change", ".army", function (e) {recalculateArmy()});
                 $(document).on("change", ".eco", function (e) {recalculateEco()});
-                $(document).on("change", ".build", function (e) {recalculateBuild()});
+                $(document).on("change", ".build", function (e) {recalculateBuildShare();});
             });
         </script>
         <style>
             .modal-dialog {
                 width: auto;
+            }
+
+            .arany {
+                color: #bababa;
             }
 
             @media (min-width: 1440px) {
@@ -322,109 +326,109 @@
                         <h3>Épületek<span id="epulet_osszeg"></span> <span class="glyphicon glyphicon-home pull-right"></span></h3>
                         <form role="form" class="hideable">
                             <div class="form-group">
-                                <label for="epulet_ures" class="col-sm-3 control-label">Üres</label>
+                                <label for="epulet_ures" class="col-sm-10 control-label">Üres <span id="epulet_ures_arany" class="arany"></span></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_ures">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_haz" class="col-sm-3 control-label">Ház</label>
+                                <label for="epulet_haz" class="col-sm-10 control-label">Ház <span id="epulet_haz_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_haz">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_barakk" class="col-sm-3 control-label">Barakk</label>
+                                <label for="epulet_barakk" class="col-sm-10 control-label">Barakk <span id="epulet_barakk_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control army eco build" id="epulet_barakk">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_kovacsmuhely" class="col-sm-3 control-label">Kovácsműhely</label>
+                                <label for="epulet_kovacsmuhely" class="col-sm-10 control-label">Kovácsműhely <span id="epulet_kovacsmuhely_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_kovacsmuhely">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_tanya" class="col-sm-3 control-label">Tanya</label>
+                                <label for="epulet_tanya" class="col-sm-10 control-label">Tanya <span id="epulet_tanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_tanya">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_konyvtar" class="col-sm-3 control-label">Könyvtár</label>
+                                <label for="epulet_konyvtar" class="col-sm-10 control-label">Könyvtár <span id="epulet_konyvtar_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control build" id="epulet_konyvtar">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_raktar" class="col-sm-3 control-label">Raktár</label>
+                                <label for="epulet_raktar" class="col-sm-10 control-label">Raktár <span id="epulet_raktar_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_raktar">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_fatelep" class="col-sm-3 control-label">Fatelep</label>
+                                <label for="epulet_fatelep" class="col-sm-10 control-label">Fatelep <span id="epulet_fatelep_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_fatelep">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_kobanya" class="col-sm-3 control-label">Kőbánya</label>
+                                <label for="epulet_kobanya" class="col-sm-10 control-label">Kőbánya <span id="epulet_kobanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_kobanya">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_fembanya" class="col-sm-3 control-label">Fémbánya</label>
+                                <label for="epulet_fembanya" class="col-sm-10 control-label">Fémbánya <span id="epulet_fembanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_fembanya">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_agyagbanya" class="col-sm-3 control-label">Agyagbánya</label>
+                                <label for="epulet_agyagbanya" class="col-sm-10 control-label">Agyagbánya <span id="epulet_agyagbanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_agyagbanya">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_dragakobanya" class="col-sm-3 control-label">Drágakőbánya</label>
+                                <label for="epulet_dragakobanya" class="col-sm-10 control-label">Drágakőbánya <span id="epulet_dragakobanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control eco build" id="epulet_dragakobanya">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_ortorony" class="col-sm-3 control-label">Őrtorony</label>
+                                <label for="epulet_ortorony" class="col-sm-10 control-label">Őrtorony <span id="epulet_ortorony_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control army build" id="epulet_ortorony">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_kocsma" class="col-sm-3 control-label">Kocsma</label>
+                                <label for="epulet_kocsma" class="col-sm-10 control-label">Kocsma <span id="epulet_kocsma_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control army build" id="epulet_kocsma">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_templom" class="col-sm-3 control-label">Templom</label>
+                                <label for="epulet_templom" class="col-sm-10 control-label">Templom <span id="epulet_templom_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control army build" id="epulet_templom">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_korhaz" class="col-sm-3 control-label">Kórház</label>
+                                <label for="epulet_korhaz" class="col-sm-10 control-label">Kórház <span id="epulet_korhaz_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control build" id="epulet_korhaz">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_piac" class="col-sm-3 control-label">Piac</label>
+                                <label for="epulet_piac" class="col-sm-10 control-label">Piac <span id="epulet_piac_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control build" id="epulet_piac">
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label for="epulet_bank" class="col-sm-3 control-label">Bank</label>
+                                <label for="epulet_bank" class="col-sm-10 control-label">Bank <span id="epulet_bank_arany" class="arany"></label>
                                 <div class="col-sm-2">
                                     <input type="text" class="form-control build" id="epulet_bank">
                                 </div>
