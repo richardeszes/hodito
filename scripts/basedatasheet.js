@@ -142,15 +142,15 @@ function recalculateArmy() {
     var tolvajok = kocsma * window.kocsma_hely * lakashelyzet;
     if (faj==4) {
         // törpe
-        katonak = parseInt(katonak * 1.2);
-        varazslok = parseInt(varazslok * 1.2);
-        tolvajok = parseInt(tolvajok * 1.2);
+        katonak = katonak * 1.2;
+        varazslok = varazslok * 1.2;
+        tolvajok = tolvajok * 1.2;
     }
-    $('#hadsereg_barakk_menny').html(katonak);
-    $('#hadsereg_torony_menny').html(ijaszok);
-    $('#hadsereg_barakknetto_menny').html(katonak-ijaszok);
-    $('#hadsereg_templom_menny').html(varazslok);
-    $('#hadsereg_kocsma_menny').html(tolvajok);
+    $('#hadsereg_barakk_menny').html(parseInt(katonak));
+    $('#hadsereg_torony_menny').html(parseInt(ijaszok));
+    $('#hadsereg_barakknetto_menny').html(parseInt(katonak-ijaszok));
+    $('#hadsereg_templom_menny').html(parseInt(varazslok));
+    $('#hadsereg_kocsma_menny').html(parseInt(tolvajok));
 }
 
 /* Gazdasági mutatók újraszámítása */
@@ -275,7 +275,7 @@ function recalculateEco() {
     emberszukseglet = emberszukseglet * window.ember;
     emberszukseglet += parseInt(0+$("#epulet_piac").val()) * window.piac_ember;
     var foglalkoztatottsag = emberszukseglet/(lakossag/100);
-    $("#orszag_foglalkoztatottsag").val(foglalkoztatottsag+"%");
+    $("#orszag_foglalkoztatottsag").val(foglalkoztatottsag.toFixed(2)+"%");
     /* Gabona egyenleg */
     var hadsereg = parseInt($('#hadsereg_barakk_menny').html()) + parseInt($('#hadsereg_torony_menny').html()) + parseInt($('#hadsereg_templom_menny').html()) + parseInt($('#hadsereg_kocsma_menny').html());
     if (faj==7) {
