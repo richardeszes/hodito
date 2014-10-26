@@ -291,6 +291,32 @@ function recalculateEco() {
         var gabona_tartalek = parseInt(r_gabona/gabona_szukseglet);
         $('#gazdasag_gabona_egyenleg').html("<span style='color: red;'>"+parseInt(gabona_tartalek)+" körre elegendő!</span>");
     }
+    /* Érték */
+    var ertek = parseInt(0+$("#epulet_haz").val());
+    ertek += parseInt(0+$("#epulet_barakk").val());
+    ertek += parseInt(0+$("#epulet_kovacsmuhely").val());
+    ertek += parseInt(0+$("#epulet_tanya").val());
+    ertek += parseInt(0+$("#epulet_konyvtar").val());
+    ertek += parseInt(0+$("#epulet_raktar").val());
+    ertek += parseInt(0+$("#epulet_fatelep").val());
+    ertek += parseInt(0+$("#epulet_kobanya").val());
+    ertek += parseInt(0+$("#epulet_fembanya").val());
+    ertek += parseInt(0+$("#epulet_agyagbanya").val());
+    ertek += parseInt(0+$("#epulet_dragakobanya").val());
+    ertek += parseInt(0+$("#epulet_ortorony").val());
+    ertek += parseInt(0+$("#epulet_kocsma").val());
+    ertek += parseInt(0+$("#epulet_templom").val());
+    ertek += parseInt(0+$("#epulet_korhaz").val());
+    ertek += parseInt(0+$("#epulet_bank").val());
+    ertek += parseInt(0+$("#epulet_piac").val());
+    ertek = ertek * 45;
+    ertek += parseInt(0+$("#epulet_ures").val())*30;
+    if (lakossag>parseInt(0+($('#epulet_osszeg').html()))) {
+        ertek += parseInt(0+($('#epulet_osszeg').html()));
+    } else {
+        ertek += lakossag;
+    }
+    $('#orszag_ertek').val(ertek);
 }
 
 /* Terület összegének kiszámítása */
