@@ -10,6 +10,56 @@ var szabadsag = [0, 0.1, 0.2, 0.3];
 /* Élőhalott szintenkénti bónusz */
 var elohalott_szint = [0.4, 0.3, 0.2, 0.1, 0];
 
+/* Faji bónuszok */
+var bonuszok = [{
+					// elf
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0.3, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// ork
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0.3 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// félelf
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0.1, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// törpe
+					ferohely: 1.2, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 1.2, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// gnóm
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// óriás
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0.15, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0.15 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// élőhalott
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				},
+				{
+					// ember
+					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
+					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
+					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
+				}];
+
 var mf_szorzo = 0.4;
 var vedelem_szorzo = 0.3;
 var verszomj_szorzo = 0.3;
@@ -36,10 +86,7 @@ function calculateDefPoints() {
     points += ijasz * window.vedo.ijasz;
     /* Toronyíjászok pontjai */
     var lakashelyzeti_szorzo = parseInt($('#csata_vedekezo_lakashelyzet_tudomany').val());
-    if (faj==4) {
-	    // törpe
-	    lakashelyzeti_szorzo *= 1.2;
-	} else if (faj==7) {
+    if (faj==7) {
 	    // élőhalott
 	    lakashelyzeti_szorzo = window.elohalott_bonusz[szint-1];
 	}
@@ -48,10 +95,10 @@ function calculateDefPoints() {
 		//elf
 		toronyij_szorzo = 8;
 	}
-	if (ijasz > (ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)))) {
+	if (ijasz > (ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj-1].ferohely)) {
 		toronyij = ijasz;
 	} else {
-		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100));
+		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj-1].ferohely;
 	}
     var toronyij_szorzo = window.vedo.ijasz;
     if (faj==3) {
@@ -60,9 +107,6 @@ function calculateDefPoints() {
     }
     points += ijasz * window.vedo.ijasz;
     points += toronyij * toronyij_szorzo;
-    if (moral==0) {
-        moral = 100;
-    }
     points = points * (moral/100);
     /* Tornyok pontjai */
     if (faj==5) {
@@ -94,17 +138,8 @@ function calculateDefPoints() {
         vedelem_bonusz = points * window.vedelem_szorzo;
     }
     /* Faji bónuszok */
-    var faji_bonusz = 0;
-    if (faj==1) {
-        // elf
-        faji_bonusz = points * 0.3;
-    } else if (faj==3) {
-        // félelf
-        faji_bonusz = points * 0.1;
-    } else if (faj==6) {
-    	// óriás
-    	faji_bonusz = points * 0.15;
-    } else if (faj==7) {
+    var faji_bonusz = points * window.bonuszok[faj-1].vedekezes;
+    if (faj==7) {
         // élőhalott
         faji_bonusz = points * window.elohalott_szint[szint-1];
     }
@@ -156,13 +191,7 @@ function calculateAttPoints() {
     points += ijasz * window.tamado.ijasz;
     points += lovas * window.tamado.lovas;
     points += elit * window.tamado.elit;
-    if (moral==0) {
-        moral = 100;
-    }
     points = points * (moral/100);
-    if (tabornok==0) {
-        tabornok = 1;
-    }
     var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok-1];
     /* Erősebb megtámadásáért járó bónusz */
     var erosebb_bonusz = 0;
@@ -180,14 +209,8 @@ function calculateAttPoints() {
         verszomj_bonusz = points * window.verszomj_szorzo;
     }
     /* Faji bónuszok */
-    var faji_bonusz = 0;
-    if (faj==2) {
-        // ork
-        faji_bonusz = points * 0.3;
-    } else if (faj==6) {
-    	// óriás
-    	faji_bonusz = points * 0.15;
-    } else if (faj==7) {
+    var faji_bonusz = points * window.bonuszok[faj-1].tamadas;
+    if (faj==7) {
         // élőhalott
         faji_bonusz = points * window.elohalott_szint[szint-1];
     }
@@ -246,9 +269,7 @@ function setAttSciMax(elem) {
     var tudomany_szorzo = window.tudomany[faj].hadugy;
 	if ($('#csata_tamado_tudos').is(':checked')) {
 		// tudós
-        if (faj!=7) {
-            tudomany_szorzo += 5;
-        }
+		window.tudomany[faj].tudos;
 	}
 	$('#'+elem).val(tudomany_szorzo);
 }
@@ -259,15 +280,10 @@ function setDefSciMax(elem) {
 	    var tudomany_szorzo = window.tudomany[faj].hadugy;
 		if ($('#csata_vedekezo_tudos').is(':checked')) {
 			// tudós
-	        if ((faj+1)!=7) {
-	        	// nem élőhalott
-	            tudomany_szorzo += 5;
-	        }
+			window.tudomany[faj].tudos;
 		}
     } else if (elem=='lakashelyzet') {
     	var tudomany_szorzo = window.tudomany[faj].lakashelyzet
     }
-    console.log(tudomany_szorzo);
-    console.log(elem);
 	$('#csata_vedekezo_'+elem+'_tudomany').val(tudomany_szorzo);
 }
