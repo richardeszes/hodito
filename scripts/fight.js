@@ -47,13 +47,13 @@ function calculateDefPoints() {
         if (terulet==0 || ortornyok==0) {
             var ortorony_szorzo = 0;
         } else {
-            var ortorony_szorzo = ((terulet/ortornyok)/100)*3;
+            var ortorony_szorzo = (ortornyok/terulet)*3;
         }
     } else {
         if (terulet==0 || ortornyok==0) {
             var ortorony_szorzo = 0;
         } else {
-            var ortorony_szorzo = ((terulet/ortornyok)/100)*2;
+            var ortorony_szorzo = (ortornyok/terulet)*2;
         }
     }
     if (ortorony_szorzo > 0.3) {
