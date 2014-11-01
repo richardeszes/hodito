@@ -9,6 +9,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
         <script src="scripts/basedatasheet.js"></script>
         <script src="scripts/fight.js"></script>
+        <script src="scripts/importer.js"></script>
         <style>
             h3 {
                 cursor: pointer;
@@ -49,6 +50,32 @@
                 }
             }
         </style>
+        <div class="modal fade" id="importalas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Tanácsadók oldal importálása</h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <p>Az alábbi szövegmezőbe bemásolva a tanácsadók oldalon található épületlistát automatikusan beállítódnak az épületek száma.</p>
+                                </div>
+                                <div class="col-sm-12">
+                                    <textarea class="form-control" rows="18" id="importerText"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
+                        <button type="button" class="btn btn-primary" onclick="importList();">Épületlista feldolgozása</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="csata_szimulalasa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -268,6 +295,7 @@
         <div class="container">
             <div class="page-header">
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#csata_szimulalasa">Csata szimulálása</button>
+                <button type="button" class="btn btn-default pull-right" data-toggle="modal" data-target="#importalas" title="Tanácsadók oldal importálása" style="margin-right: 10px;"><span class="glyphicon glyphicon-upload"></span></button>
                 <h1>Hódító kalkulátor <small>v1.0</small></h1>
             </div>
             <div class="row">

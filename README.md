@@ -13,6 +13,7 @@ alapján használható fel.
 * responsive nézet
 * localhoston is használható
 * összecsukható adatlapok - dupla kattintással az adatlap egyes részei összecsukhatóak a jobb áttekinthetőség érdekében
+* importálható épületlista
 
 ### Használat
 Látogassuk meg a http://eszes.info/hodito/ címet vagy töltsük le a HTML és JS fájlokat és számítógépünkön böngészőben megnyitva máris használhatjuk.
