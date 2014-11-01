@@ -66,6 +66,15 @@ function importList() {
 }
 
 function saveDatasheet() {
+    var tudomany = {ipar: $('#tudomany_ipar').val(),
+                    gazdasag: $('#tudomany_gazdasag').val(),
+                    mezogazdasag: $('#tudomany_mezogazdasag').val(),
+                    lakashelyzet: $('#tudomany_lakashelyzet').val(),
+                    banyaszat: $('#tudomany_banyaszat').val(),
+                    hadugy: $('#tudomany_hadugy').val(),
+                    magia: $('#tudomany_magia').val(),
+                    tolvajlas: $('#tudomany_tolvajlas').val()};
+    localStorage.setItem('tudomanyok', JSON.stringify(tudomany));
     localStorage.setItem('epuletek', JSON.stringify(getBuilds()));
     localStorage.setItem('faj', $('#orszag_faj').val());
     localStorage.setItem('szemelyiseg', $('#orszag_szemelyiseg').val());
@@ -94,6 +103,15 @@ function loadDatasheet() {
     $('#epulet_korhaz').val(epuletek.korhaz);
     $('#epulet_bank').val(epuletek.bank);
     $('#epulet_piac').val(epuletek.piac);
+    var tudomany = JSON.parse(localStorage.getItem('tudomanyok'));
+    $('#tudomany_ipar').val(tudomany.ipar);
+    $('#tudomany_gazdasag').val(tudomany.gazdasag);
+    $('#tudomany_mezogazdasag').val(tudomany.mezogazdasag);
+    $('#tudomany_lakashelyzet').val(tudomany.lakashelyzet);
+    $('#tudomany_banyaszat').val(tudomany.banyaszat);
+    $('#tudomany_hadugy').val(tudomany.hadugy);
+    $('#tudomany_magia').val(tudomany.magia);
+    $('#tudomany_tolvajlas').val(tudomany.tolvajlas);
     recalculateArmy();
     recalculateEco();
     recalculateBuildShare();
