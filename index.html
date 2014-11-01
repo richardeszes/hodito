@@ -10,6 +10,7 @@
         <script src="scripts/basedatasheet.js"></script>
         <script src="scripts/fight.js"></script>
         <script src="scripts/importer.js"></script>
+        <script src="scripts/base.js"></script>
         <style>
             h3 {
                 cursor: pointer;
@@ -22,9 +23,10 @@
                 $(document).on("dblclick", "h3", function (elem) {
                     $(this).parent().children('.hideable').toggle();
                 });
-                $(document).on("change", ".army", function (e) {recalculateArmy()});
-                $(document).on("change", ".eco", function (e) {recalculateEco()});
+                $(document).on("change", ".army", function (e) {recalculateArmy();});
+                $(document).on("change", ".eco", function (e) {recalculateEco();});
                 $(document).on("change", ".build", function (e) {recalculateBuildShare();});
+                $(document).on("change", ".filter", function (e) {validateValue(this);});
             });
         </script>
         <style>
@@ -166,37 +168,37 @@
                                                 <div class="form-group" title="A támadásban résztvevő katonák létszáma">
                                                     <label for="csata_tamado_katona" class="col-sm-12 control-label">Katona</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_katona">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_katona">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A tamádasban résztvevő védők létszáma">
                                                     <label for="csata_tamado_vedo" class="col-sm-12 control-label">Védő</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_vedo">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_vedo">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A támadásban résztvevő támadók létszáma">
                                                     <label for="csata_tamado_tamado" class="col-sm-12 control-label">Támadó</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_tamado">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_tamado">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A tamádasban résztvevő íjászok létszáma">
                                                     <label for="csata_tamado_ijasz" class="col-sm-12 control-label">Íjász</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_ijasz">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_ijasz">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A tamádasban résztvevő lovasok létszáma">
                                                     <label for="csata_tamado_lovas" class="col-sm-12 control-label">Lovas</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_lovas">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_lovas">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A tamádasban résztvevő elitek létszáma">
                                                     <label for="csata_tamado_elit" class="col-sm-12 control-label">Elit</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_elit">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_elit">
                                                     </div>
                                                 </div>
                                             </div>
@@ -225,13 +227,13 @@
                                                 <div class="form-group" title="Támadó ország katonai morálja">
                                                     <label for="csata_tamado_moral" class="col-sm-12 control-label">Kat. morál</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_moral">
+                                                        <input type="text" class="form-control filter"  data-min="0" data-max="100" data-def="100" value="100" id="csata_tamado_moral">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Hadügyi tudomány bónusza (%)">
                                                     <label for="csata_tamado_tudomany" class="col-sm-12 control-label">Hadügyi tud.</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="csata_tamado_tudomany">
+                                                        <input type="text" class="form-control filter" data-min="0" data-max="55" data-def="30" value="30" id="csata_tamado_tudomany">
                                                     </div>
                                                     <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setAttSciMax('csata_tamado_tudomany')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
@@ -250,7 +252,7 @@
                                                 <div class="form-group" title="Támadásban résztvevő tábornokok száma">
                                                     <label for="csata_tamado_tabornok" class="col-sm-12 control-label">Tábornok</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_tamado_tabornok">
+                                                        <input type="text" class="form-control filter" data-min="1" data-max="8" data-def="1" value="1" id="csata_tamado_tabornok">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Vérszomj varázslat aktív-e">
@@ -271,43 +273,43 @@
                                                 <div class="form-group" title="A védekezésben résztvevő katonák létszáma">
                                                     <label for="csata_vedekezo_katona" class="col-sm-12 control-label">Katona</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_katona">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_katona">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekezésben résztvevő védők létszáma">
                                                     <label for="csata_vedekezo_vedo" class="col-sm-12 control-label">Védő</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_vedo">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_vedo">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekezésben résztvevő támadók létszáma">
                                                     <label for="csata_vedekezo_tamado" class="col-sm-12 control-label">Támadó</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_tamado">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_tamado">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekezésben résztvevő íjászok létszáma">
                                                     <label for="csata_vedekezo_ijasz" class="col-sm-12 control-label">Íjász</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_ijasz">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_ijasz">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekezésben résztvevő lovasok létszáma">
                                                     <label for="csata_vedekezo_lovas" class="col-sm-12 control-label">Lovas</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_lovas">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_lovas">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekezésben résztvevő elitek létszáma">
                                                     <label for="csata_vedekezo_elit" class="col-sm-12 control-label">Elit</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_elit">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_elit">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Szabadságon lévő szövetségesek száma">
                                                     <label for="csata_vedekezo_szovetseg_szabadsagon" class="col-sm-12 control-label">Szab. szövetségesek</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_szovetseg_szabadsagon">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_szovetseg_szabadsagon">
                                                     </div>
                                                 </div>
                                             </div>
@@ -336,21 +338,21 @@
                                                 <div class="form-group" title="Hadügyi tudomány bónusza (%)">
                                                     <label for="csata_vedekezo_hadugy_tudomany" class="col-sm-12 control-label">Hadügyi tud.</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_hadugy_tudomany">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="30" data-max="55" value="30" id="csata_vedekezo_hadugy_tudomany">
                                                     </div>
                                                     <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setDefSciMax('hadugy')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
                                                 <div class="form-group" title="Lakáshelyzeti tudomány bónusza (%)">
                                                     <label for="csata_vedekezo_lakashelyzet_tudomany" class="col-sm-12 control-label">Lakásh. tud.</label>
                                                     <div class="col-sm-9">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_lakashelyzet_tudomany">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="30" data-max="55" value="30" id="csata_vedekezo_lakashelyzet_tudomany">
                                                     </div>
                                                     <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setDefSciMax('lakashelyzet')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
                                                 <div class="form-group" title="Védekező ország katonai morálja">
                                                     <label for="csata_vedekezo_moral" class="col-sm-12 control-label">Kat. morál</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_moral">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="100" data-max="100" value="100" id="csata_vedekezo_moral">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="A védekező ország szövetség tagja-e?">
@@ -362,13 +364,13 @@
                                                 <div class="form-group" title="Védekező ország teljes földterülete">
                                                     <label for="csata_vedekezo_terulet" class="col-sm-12 control-label">Össz. földterület</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_terulet">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="200" value="200" id="csata_vedekezo_terulet">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Védekező ország őrtornyainak száma">
                                                     <label for="csata_vedekezo_ortornyok" class="col-sm-12 control-label">Őrtornyok száma</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control" id="csata_vedekezo_ortornyok">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_ortornyok">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Védelem varázslat aktív-e">
@@ -477,109 +479,109 @@
                             <div class="form-group">
                                 <label for="epulet_ures" class="col-sm-10 control-label">Üres <span id="epulet_ures_arany" class="arany"></span></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_ures">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_ures">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_haz" class="col-sm-10 control-label">Ház <span id="epulet_haz_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_haz">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_haz">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_barakk" class="col-sm-10 control-label">Barakk <span id="epulet_barakk_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control army eco build" id="epulet_barakk">
+                                    <input type="text" class="form-control army eco build filter" data-min="0" data-def="0" value="0" id="epulet_barakk">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kovacsmuhely" class="col-sm-10 control-label">Kovácsműhely <span id="epulet_kovacsmuhely_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_kovacsmuhely">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_kovacsmuhely">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_tanya" class="col-sm-10 control-label">Tanya <span id="epulet_tanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_tanya">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_tanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_konyvtar" class="col-sm-10 control-label">Könyvtár <span id="epulet_konyvtar_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control build" id="epulet_konyvtar">
+                                    <input type="text" class="form-control build filter" data-min="0" data-def="0" value="0" id="epulet_konyvtar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_raktar" class="col-sm-10 control-label">Raktár <span id="epulet_raktar_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_raktar">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_raktar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_fatelep" class="col-sm-10 control-label">Fatelep <span id="epulet_fatelep_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_fatelep">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_fatelep">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kobanya" class="col-sm-10 control-label">Kőbánya <span id="epulet_kobanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_kobanya">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_kobanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_fembanya" class="col-sm-10 control-label">Fémbánya <span id="epulet_fembanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_fembanya">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_fembanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_agyagbanya" class="col-sm-10 control-label">Agyagbánya <span id="epulet_agyagbanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_agyagbanya">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_agyagbanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_dragakobanya" class="col-sm-10 control-label">Drágakőbánya <span id="epulet_dragakobanya_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco build" id="epulet_dragakobanya">
+                                    <input type="text" class="form-control eco build filter" data-min="0" data-def="0" value="0" id="epulet_dragakobanya">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_ortorony" class="col-sm-10 control-label">Őrtorony <span id="epulet_ortorony_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control army build" id="epulet_ortorony">
+                                    <input type="text" class="form-control army build filter" data-min="0" data-def="0" value="0" id="epulet_ortorony">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_kocsma" class="col-sm-10 control-label">Kocsma <span id="epulet_kocsma_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control army build" id="epulet_kocsma">
+                                    <input type="text" class="form-control army build filter" data-min="0" data-def="0" value="0" id="epulet_kocsma">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_templom" class="col-sm-10 control-label">Templom <span id="epulet_templom_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control army build" id="epulet_templom">
+                                    <input type="text" class="form-control army build filter" data-min="0" data-def="0" value="0" id="epulet_templom">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_korhaz" class="col-sm-10 control-label">Kórház <span id="epulet_korhaz_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control build" id="epulet_korhaz">
+                                    <input type="text" class="form-control build filter" data-min="0" data-def="0" value="0" id="epulet_korhaz">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_piac" class="col-sm-10 control-label">Piac <span id="epulet_piac_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control build" id="epulet_piac">
+                                    <input type="text" class="form-control build filter" data-min="0" data-def="0" value="0" id="epulet_piac">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="epulet_bank" class="col-sm-10 control-label">Bank <span id="epulet_bank_arany" class="arany"></label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control build" id="epulet_bank">
+                                    <input type="text" class="form-control build filter" data-min="0" data-def="0" value="0" id="epulet_bank">
                                 </div>
                             </div>
                         </form>
@@ -627,49 +629,49 @@
                             <div class="form-group">
                                 <label for="tudomany_ipar" class="col-sm-3 control-label">Ipar</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="tudomany_ipar">
+                                    <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="tudomany_ipar">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_gazdasag" class="col-sm-3 control-label">Gazdaság</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="tudomany_gazdasag">
+                                    <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="tudomany_gazdasag">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_mezogazdasag" class="col-sm-3 control-label">Mezőgazdaság</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco" id="tudomany_mezogazdasag">
+                                    <input type="text" class="form-control eco filter" data-min="0" data-def="0" value="0" id="tudomany_mezogazdasag">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_lakashelyzet" class="col-sm-3 control-label">Lakáshelyzet</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control army" id="tudomany_lakashelyzet">
+                                    <input type="text" class="form-control army filter" data-min="0" data-def="0" value="0" id="tudomany_lakashelyzet">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_banyaszat" class="col-sm-3 control-label">Bányászat</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control eco" id="tudomany_banyaszat">
+                                    <input type="text" class="form-control eco filter" data-min="0" data-def="0" value="0" id="tudomany_banyaszat">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_hadugy" class="col-sm-3 control-label">Hadügy</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="tudomany_hadugy">
+                                    <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="tudomany_hadugy">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_magia" class="col-sm-3 control-label">Mágia</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="tudomany_magia">
+                                    <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="tudomany_magia">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="tudomany_tolvajlas" class="col-sm-3 control-label">Tolvajlás</label>
                                 <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="tudomany_tolvajlas">
+                                    <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="tudomany_tolvajlas">
                                 </div>
                             </div>
                         </form>
