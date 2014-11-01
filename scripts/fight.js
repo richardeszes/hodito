@@ -133,7 +133,7 @@ function calculateDefPoints() {
             hadugyi_szorzo += 5;
         }
     }
-    hadugyi_bonusz = points * (tudomany_szorzo/100);
+    hadugyi_bonusz = points * (hadugyi_szorzo/100);
     points += hadugyi_bonusz;
     points += faji_bonusz;
     points += mf_bonusz;
