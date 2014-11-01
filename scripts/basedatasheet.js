@@ -266,10 +266,10 @@ function recalculateEco() {
     emberszukseglet += epuletek.bank;
     emberszukseglet = emberszukseglet * window.ember;
     emberszukseglet += epuletek.piac * window.piac_ember;
-    var foglalkoztatottsag = emberszukseglet/(lakossag/100);
+    var foglalkoztatottsag = (lakossag/emberszukseglet)*100;
     $("#orszag_foglalkoztatottsag").val(foglalkoztatottsag.toFixed(2)+"%");
     /* Gabona egyenleg */
-    var hadsereg = parseInt($('#hadsereg_barakk_menny').html()) + parseInt($('#hadsereg_torony_menny').html()) + parseInt($('#hadsereg_templom_menny').html()) + parseInt($('#hadsereg_kocsma_menny').html());
+    var hadsereg = parseInt($('#hadsereg_barakk_menny').html()) + parseInt($('#hadsereg_templom_menny').html()) + parseInt($('#hadsereg_kocsma_menny').html());
     if (faj==7) {
         // élőhalott
         var gabona_szukseglet = 0;
