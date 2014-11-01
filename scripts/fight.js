@@ -28,8 +28,31 @@ function calculateDefPoints() {
     points += lovas * window.vedo.lovas;
     points += elit * window.vedo.elit;
     /* Toronyíjászok pontjai */
+    var lakashelyzeti_szorzo = window.tudomany_alap;
+    if (faj==3) {
+        // elf
+        lakashelyzeti_szorzo = 40;
+    } else if (faj==5) {
+        // gnóm
+        lakashelyzeti_szorzo = 50;
+    } else if (faj==6) {
+        // óriás
+        lakashelyzeti_szorzo = 40;
+    } else if (faj==7) {
+        // élőhalott
+        lakashelyzeti_szorzo = 0;
+    }
+    if ($('#csata_vedekezo_tudos').is(':checked')) {
+        // tudós
+        lakashelyzeti_szorzo += 5;
+    }
     if ((ortornyok*40) < ijasz) {
-        var toronyij = ortornyok*40;
+        if (faj==4) {
+            // törpe
+            var toronyij = ((ortornyok*40)*1.2)*(1+(lakashelyzeti_szorzo/100));
+        } else {
+            var toronyij = ortornyok*40*(1+(lakashelyzeti_szorzo/100));
+        }
         ijasz = ijasz-toronyij;
     } else {
         var toronyij = ijasz;
@@ -80,29 +103,29 @@ function calculateDefPoints() {
         faji_bonusz = points * 0.1;
     }
     /* Tudomány bónusz */
-    var tudomany_bonusz = 0;
-    var tudomany_szorzo = window.tudomany_alap;
+    var hadugyi_bonusz = 0;
+    var hadugyi_szorzo = window.tudomany_alap;
     if (faj==1) {
         // elf
-        tudomany_szorzo =  40;
+        hadugyi_szorzo =  40;
     } else if (faj==2) {
         // ork
-        tudomany_szorzo = 40;
+        hadugyi_szorzo = 40;
     } else if (faj==4) {
         // törpe
-        tudomany_szorzo = 40;
+        hadugyi_szorzo = 40;
     } else if (faj==5) {
         // gnóm
-        tudomany_szorzo = 50;
+        hadugyi_szorzo = 50;
     } else if (faj==7) {
-        tudomany_szorzo = 0;
+        hadugyi_szorzo = 0;
     }
     if ($('#csata_vedekezo_tudos').is(':checked')) {
         // tudós
-        tudomany_szorzo += 5;
+        hadugyi_szorzo += 5;
     }
-    tudomany_bonusz = points * (tudomany_szorzo/100);
-    points += tudomany_bonusz;
+    hadugyi_bonusz = points * (tudomany_szorzo/100);
+    points += hadugyi_bonusz;
     points += faji_bonusz;
     points += mf_bonusz;
     points += ortorony_bonusz;
