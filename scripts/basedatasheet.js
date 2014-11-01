@@ -1,3 +1,101 @@
+/* Faji változók */
+var tudomany= [{
+				// elf
+				ipar: 30,
+				gazdasag: 30,
+				mezogazdasag: 30,
+				lakashelyzet: 30,
+				banyaszat: 30,
+				hadugy: 40,
+				magia: 40,
+				tolvajlas: 30,
+				tudos: 5
+		 	},
+		 	{
+		 		// ork
+				ipar: 30,
+				gazdasag: 30,
+				mezogazdasag: 40,
+				lakashelyzet: 30,
+				banyaszat: 30,
+				hadugy: 40,
+				magia: 30,
+				tolvajlas: 30,
+				tudos: 5
+			},
+			{
+				// félelf
+				ipar: 30,
+				gazdasag: 30,
+				mezogazdasag: 30,
+				lakashelyzet: 40,
+				banyaszat: 30,
+				hadugy: 30,
+				magia: 30,
+				tolvajlas: 40,
+				tudos: 5
+			},
+			{
+				// törpe
+				ipar: 40,
+				gazdasag: 30,
+				mezogazdasag: 30,
+				lakashelyzet: 30,
+				banyaszat: 30,
+				hadugy: 40,
+				magia: 30,
+				tolvajlas: 30,
+				tudos: 5
+			},
+		 	{
+				// gnóm
+				ipar: 50,
+				gazdasag: 50,
+				mezogazdasag: 50,
+				lakashelyzet: 50,
+				banyaszat: 50,
+				hadugy: 50,
+				magia: 50,
+				tolvajlas: 50,
+				tudos: 5
+			},
+			{
+				// óriás
+				ipar: 30,
+				gazdasag: 30,
+				mezogazdasag: 30,
+				lakashelyzet: 40,
+				banyaszat: 30,
+				hadugy: 30,
+				magia: 40,
+				tolvajlas: 30,
+				tudos: 5
+			},
+			{
+				// élőhalott
+				ipar: 0,
+				gazdasag: 0,
+				mezogazdasag: 0,
+				lakashelyzet: 0,
+				banyaszat: 0,
+				hadugy: 0,
+				magia: 0,
+				tolvajlas: 0,
+				tudos: 0
+			},
+			{
+				// ember
+				ipar: 30,
+				gazdasag: 30,
+				mezogazdasag: 30,
+				lakashelyzet: 30,
+				banyaszat: 30,
+				hadugy: 30,
+				magia: 30,
+				tolvajlas: 30,
+				tudos: 5
+			}];
+
 /* Katonai állandók */
 var barakk_hely = 40;
 var kocsma_hely = 40;
@@ -18,114 +116,49 @@ var piac_ember = 50;
 
 /* Egyéb állandók */
 var tudomany_alap = 30;
-var elohalott_bonusz = [0.6, 0.5, 0.4, 0.3, 0.2];
+var elohalott_bonusz = [60, 50, 40, 30, 20];
 
 /* Tudományok maximális értékének meghatározása vagy beállítása */
 function checkSciMax(setmax) {
-    var faj = $('#orszag_faj').val();
+    var faj = $('#orszag_faj').val()-1;
     var szemelyiseg = $('#orszag_szemelyiseg').val();
-    var ipar = window.tudomany_alap;
-    var gazdasag = window.tudomany_alap;
-    var mezogazdasag = window.tudomany_alap;
-    var lakashelyzet = window.tudomany_alap;
-    var banyaszat = window.tudomany_alap;
-    var hadugy = window.tudomany_alap;
-    var magia = window.tudomany_alap;
-    var tolvajlas = window.tudomany_alap;
-    if (faj==1) {
-        // elf
-        hadugy =  40;
-        magia = 40;
-    } else if (faj==2) {
-        // ork
-        hadugy = 40;
-        mezogazdasag = 40;
-    } else if (faj==3) {
-        // félelf
-        lakashelyzet = 40;
-        tolvajlas = 40;
-    } else if (faj==4) {
-        // törpe
-        ipar = 40;
-        hadugy = 40;
-    } else if (faj==5) {
-        // gnóm
-        ipar = 50;
-        gazdasag = 50;
-        mezogazdasag = 50;
-        lakashelyzet = 50;
-        banyaszat = 50;
-        hadugy = 50;
-        magia = 50;
-        tolvajlas = 50;
-    } else if (faj==6) {
-        // óriás
-        lakashelyzet = 40;
-        magia = 40;
-    } else if (faj==7) {
-        // élőhalott
-        ipar = 0;
-        gazdasag = 0;
-        mezogazdasag = 0;
-        lakashelyzet = 0;
-        banyaszat = 0;
-        hadugy = 0;
-        magia = 0;
-        tolvajlas = 0;
-    }
+    var bonusz = 0;
     if (szemelyiseg==8) {
-        // tudós
-        if (faj!=7) {
-            ipar += 5;
-            gazdasag += 5;
-            mezogazdasag += 5;
-            banyaszat += 5;
-            hadugy += 5;
-            magia += 5;
-            tolvajlas += 5;
-        }
+    	bonusz = window.tudomany[faj].tudos;
     }
     if (setmax) {
-        $('#tudomany_ipar').val(ipar);
-        $('#tudomany_gazdasag').val(gazdasag);
-        $('#tudomany_mezogazdasag').val(mezogazdasag);
-        $('#tudomany_lakashelyzet').val(lakashelyzet);
-        $('#tudomany_banyaszat').val(banyaszat);
-        $('#tudomany_hadugy').val(hadugy);
-        $('#tudomany_magia').val(magia);
-        $('#tudomany_tolvajlas').val(tolvajlas);
+        $('#tudomany_ipar').val(window.tudomany[faj].ipar+bonusz);
+        $('#tudomany_gazdasag').val(window.tudomany[faj].gazdasag+bonusz);
+        $('#tudomany_mezogazdasag').val(window.tudomany[faj].mezogazdasag+bonusz);
+        $('#tudomany_lakashelyzet').val(window.tudomany[faj].lakashelyzet);
+        $('#tudomany_banyaszat').val(window.tudomany[faj].banyaszat+bonusz);
+        $('#tudomany_hadugy').val(window.tudomany[faj].hadugy+bonusz);
+        $('#tudomany_magia').val(window.tudomany[faj].magia+bonusz);
+        $('#tudomany_tolvajlas').val(window.tudomany[faj].tolvajlas+bonusz);
     } else {
-        var ipar_akt = $('#tudomany_ipar').val();
-        var gazdasag_akt = $('#tudomany_gazdasag').val();
-        var mezogazdasag_akt = $('#tudomany_mezogazdasag').val();
-        var lakashelyzet_akt = $('#tudomany_lakashelyzet').val();
-        var banyaszat_akt = $('#tudomany_banyaszat').val();
-        var hadugy_akt = $('#tudomany_hadugy').val();
-        var magia_akt = $('#tudomany_magia').val();
-        var tolvajlas_akt = $('#tudomany_tolvajlas').val();
-        if (ipar_akt > ipar) {
-            $('#tudomany_ipar').val(ipar);
+        if ($('#tudomany_ipar').val() > window.tudomany[faj].ipar) {
+            $('#tudomany_ipar').val(window.tudomany[faj].ipar);
         }
-        if (gazdasag_akt > gazdasag) {
-            $('#tudomany_gazdasag').val(gazdasag);
+        if ($('#tudomany_gazdasag').val() > (window.tudomany[faj].gazdasag+bonusz)) {
+            $('#tudomany_gazdasag').val(window.tudomany[faj].gazdasag+bonusz);
         }
-        if (mezogazdasag_akt > mezogazdasag) {
-            $('#tudomany_mezogazdasag').val(mezogazdasag);
+        if ($('#tudomany_mezogazdasag').val() > (window.tudomany[faj].mezogazdasag+bonusz)) {
+            $('#tudomany_mezogazdasag').val(window.tudomany[faj].mezogazdasag+bonusz);
         }
-        if (lakashelyzet_akt > lakashelyzet) {
-            $('#tudomany_lakashelyzet').val(lakashelyzet);
+        if ($('#tudomany_lakashelyzet').val() > window.tudomany[faj].lakashelyzet) {
+            $('#tudomany_lakashelyzet').val(window.tudomany[faj].lakashelyzet);
         }
-        if (banyaszat_akt > banyaszat) {
-            $('#tudomany_banyaszat').val(banyaszat);
+        if ($('#tudomany_banyaszat').val() > (window.tudomany[faj].banyaszat+bonusz)) {
+            $('#tudomany_banyaszat').val(window.tudomany[faj].banyaszat+bonusz);
         }
-        if (hadugy_akt > hadugy) {
-            $('#tudomany_hadugy').val(hadugy);
+        if ($('#tudomany_hadugy').val() > (window.tudomany[faj].hadugy+bonusz)) {
+            $('#tudomany_hadugy').val(window.tudomany[faj].hadugy+bonusz);
         }
-        if (magia_akt > magia) {
-            $('#tudomany_magia').val(magia);
+        if ($('#tudomany_magia').val() > (window.tudomany[faj].magia+bonusz)) {
+            $('#tudomany_magia').val(window.tudomany[faj].magia+bonusz);
         }
-        if (tolvajlas_akt > tolvajlas) {
-            $('#tudomany_tolvajlas').val(tolvajlas);
+        if ($('#tudomany_tolvajlas').val() > (window.tudomany[faj].tolvajlas+bonusz)) {
+            $('#tudomany_tolvajlas').val(window.tudomany[faj].tolvajlas+bonusz);
         }
    }
 }
@@ -133,7 +166,7 @@ function checkSciMax(setmax) {
 /* Hadsereg mutatóinak újraszámítása */
 function recalculateArmy() {
     checkSciMax(false);
-    var szint = $('#orszag_szint').val();
+    var szint = $('#orszag_szint').val()-1;
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
     if (faj==7) {
@@ -154,10 +187,10 @@ function recalculateArmy() {
         tolvajok = tolvajok * 1.2;
     } else if (faj==7) {
     	// élőhalott
-    	katonak = katonak * (1+(window.elohalott_bonusz[szint-1]));
-    	ijaszok = ijaszok * (1+(window.elohalott_bonusz[szint-1]));
-        varazslok = varazslok * (1+(window.elohalott_bonusz[szint-1]));
-        tolvajok = tolvajok * (1+(window.elohalott_bonusz[szint-1]));
+    	katonak = katonak * (1+(window.elohalott_bonusz[szint]/100));
+    	ijaszok = ijaszok * (1+(window.elohalott_bonusz[szint]/100));
+        varazslok = varazslok * (1+(window.elohalott_bonusz[szint]/100));
+        tolvajok = tolvajok * (1+(window.elohalott_bonusz[szint]/100));
     }
     $('#hadsereg_barakk_menny').html(parseInt(katonak));
     $('#hadsereg_torony_menny').html(parseInt(ijaszok));
@@ -172,7 +205,7 @@ function recalculateEco() {
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
     var szemelyiseg = $('#orszag_szemelyiseg').val();
-    var szint = $('#orszag_szint').val();
+    var szint = $('#orszag_szint').val()-1;
     var banyaszat = 1.0+($('#tudomany_banyaszat').val()/100);
     var mezogazdasag = 1.0+($('#tudomany_mezogazdasag').val()/100);
     /* Termelés */
@@ -263,7 +296,7 @@ function recalculateEco() {
         lakossag = lakossag * 1.2;
     } else if (faj==7) {
     	// élőhalott
-    	lakossag = lakossag * (1+(window.elohalott_bonusz[szint-1]));
+    	lakossag = lakossag * (1+(window.elohalott_bonusz[szint]/100));
     }
     $("#orszag_nepesseg").val(parseInt(lakossag));
     var emberszukseglet = epuletek.haz;
@@ -331,47 +364,47 @@ function recalculateEco() {
 
 /* Terület összegének kiszámítása */
 function getBuildsCount() {
-    var epuletek = parseInt(0+$("#epulet_haz").val());
-    epuletek += parseInt(0+$("#epulet_barakk").val());
-    epuletek += parseInt(0+$("#epulet_kovacsmuhely").val());
-    epuletek += parseInt(0+$("#epulet_tanya").val());
-    epuletek += parseInt(0+$("#epulet_konyvtar").val());
-    epuletek += parseInt(0+$("#epulet_raktar").val());
-    epuletek += parseInt(0+$("#epulet_fatelep").val());
-    epuletek += parseInt(0+$("#epulet_kobanya").val());
-    epuletek += parseInt(0+$("#epulet_fembanya").val());
-    epuletek += parseInt(0+$("#epulet_agyagbanya").val());
-    epuletek += parseInt(0+$("#epulet_dragakobanya").val());
-    epuletek += parseInt(0+$("#epulet_ortorony").val());
-    epuletek += parseInt(0+$("#epulet_kocsma").val());
-    epuletek += parseInt(0+$("#epulet_templom").val());
-    epuletek += parseInt(0+$("#epulet_korhaz").val());
-    epuletek += parseInt(0+$("#epulet_bank").val());
-    epuletek += parseInt(0+$("#epulet_piac").val());
-    epuletek += parseInt(0+$("#epulet_ures").val());
+    var epuletek = parseInt($("#epulet_haz").val());
+    epuletek += parseInt($("#epulet_barakk").val());
+    epuletek += parseInt($("#epulet_kovacsmuhely").val());
+    epuletek += parseInt($("#epulet_tanya").val());
+    epuletek += parseInt($("#epulet_konyvtar").val());
+    epuletek += parseInt($("#epulet_raktar").val());
+    epuletek += parseInt($("#epulet_fatelep").val());
+    epuletek += parseInt($("#epulet_kobanya").val());
+    epuletek += parseInt($("#epulet_fembanya").val());
+    epuletek += parseInt($("#epulet_agyagbanya").val());
+    epuletek += parseInt($("#epulet_dragakobanya").val());
+    epuletek += parseInt($("#epulet_ortorony").val());
+    epuletek += parseInt($("#epulet_kocsma").val());
+    epuletek += parseInt($("#epulet_templom").val());
+    epuletek += parseInt($("#epulet_korhaz").val());
+    epuletek += parseInt($("#epulet_bank").val());
+    epuletek += parseInt($("#epulet_piac").val());
+    epuletek += parseInt($("#epulet_ures").val());
     return epuletek;
 }
 
 /* Épületek listájának beszerzése */
 function getBuilds() {
-    var ures = parseInt(0+$('#epulet_ures').val());
-    var haz = parseInt(0+$('#epulet_haz').val());
-    var barakk = parseInt(0+$('#epulet_barakk').val());
-    var kovacsmuhely = parseInt(0+$('#epulet_kovacsmuhely').val());
-    var tanya = parseInt(0+$('#epulet_tanya').val());
-    var konyvtar = parseInt(0+$('#epulet_konyvtar').val());
-    var raktar = parseInt(0+$('#epulet_raktar').val());
-    var fatelep = parseInt(0+$('#epulet_fatelep').val());
-    var kobanya = parseInt(0+$('#epulet_kobanya').val());
-    var fembanya = parseInt(0+$('#epulet_fembanya').val());
-    var agyagbanya = parseInt(0+$('#epulet_agyagbanya').val());
-    var dragakobanya = parseInt(0+$('#epulet_dragakobanya').val());
-    var ortorony = parseInt(0+$('#epulet_ortorony').val());
-    var kocsma = parseInt(0+$('#epulet_kocsma').val());
-    var templom = parseInt(0+$('#epulet_templom').val());
-    var korhaz = parseInt(0+$('#epulet_korhaz').val());
-    var bank = parseInt(0+$('#epulet_bank').val());
-    var piac = parseInt(0+$('#epulet_piac').val());
+    var ures = parseInt($('#epulet_ures').val());
+    var haz = parseInt($('#epulet_haz').val());
+    var barakk = parseInt($('#epulet_barakk').val());
+    var kovacsmuhely = parseInt($('#epulet_kovacsmuhely').val());
+    var tanya = parseInt($('#epulet_tanya').val());
+    var konyvtar = parseInt($('#epulet_konyvtar').val());
+    var raktar = parseInt($('#epulet_raktar').val());
+    var fatelep = parseInt($('#epulet_fatelep').val());
+    var kobanya = parseInt($('#epulet_kobanya').val());
+    var fembanya = parseInt($('#epulet_fembanya').val());
+    var agyagbanya = parseInt($('#epulet_agyagbanya').val());
+    var dragakobanya = parseInt($('#epulet_dragakobanya').val());
+    var ortorony = parseInt($('#epulet_ortorony').val());
+    var kocsma = parseInt($('#epulet_kocsma').val());
+    var templom = parseInt($('#epulet_templom').val());
+    var korhaz = parseInt($('#epulet_korhaz').val());
+    var bank = parseInt($('#epulet_bank').val());
+    var piac = parseInt($('#epulet_piac').val());
     var epuletek = {ures:ures, haz:haz, barakk:barakk, kovacsmuhely:kovacsmuhely,
         tanya:tanya, konyvtar:konyvtar, raktar:raktar, fatelep:fatelep,
         kobanya:kobanya, fembanya:fembanya, agyagbanya:agyagbanya,
