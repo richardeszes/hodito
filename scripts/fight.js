@@ -5,6 +5,7 @@ var erosebb_szorzo = 0.1;
 
 /* Védő értékek */
 var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, toronyij:12, lovas:2, elit:5};
+var szabadsag = [0, 0.1, 0.2, 0.3];
 
 /* Élőhalott szintenkénti bónusz */
 var elohalott_szint = [0.4, 0.3, 0.2, 0.1, 0];
@@ -16,6 +17,7 @@ var verszomj_szorzo = 0.3;
 function calculateDefPoints() {
     var faj = $('#csata_vedekezo_faj').val();
     var szint = $('#csata_szint').val();
+    var szabadsagon = parseInt(0+$('#csata_vedekezo_szovetseg_szabadsagon').val());
     var terulet = parseInt(0+$('#csata_vedekezo_terulet').val());
     var ortornyok = parseInt(0+$('#csata_vedekezo_ortornyok').val());
     var moral = parseInt(0+$('#csata_vedekezo_moral').val());
@@ -153,12 +155,23 @@ function calculateDefPoints() {
     } else {
     	var hadugyi_szorzo = hadugy;
     }
+    /* Szabadságon lévő szövetségesek után járó bónusz */
+    var szabadsag_bonusz = 0;
+    if ($('#csata_vedekezo_szovetseg').is(':checked')) {
+	    if (szabadsagon > 3) {
+	    	szabadsagon = 3;
+	    }
+	    if (szabadsagon > 0) {
+	    	szabadsag_bonusz = points * window.szabadsag[szabadsagon];
+	    }
+    }
     hadugyi_bonusz = points * (hadugyi_szorzo/100);
     points += hadugyi_bonusz;
     points += faji_bonusz;
     points += mf_bonusz;
     points += ortorony_bonusz;
     points += vedelem_bonusz;
+    points += szabadsag_bonusz;
     return points;
 }
 
