@@ -44,12 +44,67 @@
                 box-shadow: none;
             }
 
+            #slideout {
+                display: none;
+            }
+
             @media (min-width: 1440px) {
                 .modal-dialog {
                     width: 80%;
                 }
             }
+
+            @media (min-width: 1000px) {
+                #slideout {
+                    display: block;
+                    z-index: 100;
+                    position: fixed;
+                    top: 200px;
+                    left: 0;
+                    -webkit-transition-duration: 0.3s;
+                    -moz-transition-duration: 0.3s;
+                    -o-transition-duration: 0.3s;
+                    transition-duration: 0.3s;
+                    color: white;
+                }
+                #slideout_inner {
+                    position: fixed;
+                    top: 200px;
+                    left: -250px;
+                    -webkit-transition-duration: 0.3s;
+                    -moz-transition-duration: 0.3s;
+                    -o-transition-duration: 0.3s;
+                    transition-duration: 0.3s;
+                    background-color: #69aa50;
+                    border-radius: 0 0 10px 0;
+                    width: 230px;
+                    padding: 10px;
+                }
+                #slideout:hover {
+                    left: 230px;
+                }
+                #slideout:hover #slideout_inner {
+                    left: 0;
+                }
+            }
         </style>
+        <div id="slideout">
+            <img src="images/info.png" alt="Feedback" />
+            <div id="slideout_inner">
+                 <p><strong>Utolsó frissítés:</strong><br />2014. november 1.</p>
+                 <br />
+                 <p><strong>Képességek:</strong></p>
+                 <ul>
+                    <li>barakk és őrtorony férőhelyek számítása épületlista alapján</li>
+                    <li>gabonatermelés és -egyenleg számítása épületlista alapján</li>
+                    <li>harc szimulációja</li>
+                    <li>responsive nézet</li>
+                    <li>localhoston is használható</li>
+                    <li>összecsukható adatlapok - dupla kattintással az adatlap egyes részei összecsukhatóak a jobb áttekinthetőség érdekében</li>
+                    <li>importálható épületlista</li>
+                 </ul>
+            </div>
+        </div>
         <div class="modal fade" id="importalas" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
