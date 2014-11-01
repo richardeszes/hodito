@@ -66,22 +66,43 @@ function importList() {
 }
 
 function saveDatasheet() {
-    var tudomany = {ipar: $('#tudomany_ipar').val(),
-                    gazdasag: $('#tudomany_gazdasag').val(),
-                    mezogazdasag: $('#tudomany_mezogazdasag').val(),
-                    lakashelyzet: $('#tudomany_lakashelyzet').val(),
-                    banyaszat: $('#tudomany_banyaszat').val(),
-                    hadugy: $('#tudomany_hadugy').val(),
-                    magia: $('#tudomany_magia').val(),
-                    tolvajlas: $('#tudomany_tolvajlas').val()};
-    localStorage.setItem('tudomanyok', JSON.stringify(tudomany));
-    localStorage.setItem('epuletek', JSON.stringify(getBuilds()));
-    localStorage.setItem('faj', $('#orszag_faj').val());
-    localStorage.setItem('szemelyiseg', $('#orszag_szemelyiseg').val());
-    alert("Az adatok mentése megtörtént.");
+    try {
+        localStorage.setItem('test', 'test');
+        localStorage.removeItem('test');
+        var test_result = true;
+    } catch(e) {
+        var test_result = false;
+    }
+    if (test_result) {
+        var tudomany = {ipar: $('#tudomany_ipar').val(),
+                        gazdasag: $('#tudomany_gazdasag').val(),
+                        mezogazdasag: $('#tudomany_mezogazdasag').val(),
+                        lakashelyzet: $('#tudomany_lakashelyzet').val(),
+                        banyaszat: $('#tudomany_banyaszat').val(),
+                        hadugy: $('#tudomany_hadugy').val(),
+                        magia: $('#tudomany_magia').val(),
+                        tolvajlas: $('#tudomany_tolvajlas').val()};
+        localStorage.setItem('tudomanyok', JSON.stringify(tudomany));
+        localStorage.setItem('epuletek', JSON.stringify(getBuilds()));
+        localStorage.setItem('faj', $('#orszag_faj').val());
+        localStorage.setItem('szemelyiseg', $('#orszag_szemelyiseg').val());
+        alert("Az adatok mentése megtörtént.");
+    } else {
+        alert("A böngésződ nem támogatja ezt a funkciót!");
+    }
 }
 
 function loadDatasheet() {
+    try {
+        localStorage.getItem('faj');
+        var test_result = true;
+    } catch(e) {
+        var test_result = false;
+    }
+    if (!test_result) {
+        alert('Nincs betöltendő adat vagy a böngésződ nem támogatja ezt a funkciót!');
+        return false;
+    }
     $('#orszag_faj').val(localStorage.getItem('faj'));
     $('#orszag_szemelyiseg').val(localStorage.getItem('szemelyiseg'));
     var epuletek = JSON.parse(localStorage.getItem('epuletek'));
