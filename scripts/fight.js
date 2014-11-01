@@ -63,6 +63,9 @@ function calculateDefPoints() {
         if (faj==4) {
             // törpe
             var toronyij = ((ortornyok*40)*1.2)*(1+(lakashelyzeti_szorzo/100));
+        } else if (faj==7) {
+        	// élőhalott
+        	var toronyij = ((ortornyok*40)*(1+(window.elohalott_bonusz[szint-1])))*(1+(lakashelyzeti_szorzo/100));
         } else {
             var toronyij = ortornyok*40*(1+(lakashelyzeti_szorzo/100));
         }

@@ -18,6 +18,7 @@ var piac_ember = 50;
 
 /* Egyéb állandók */
 var tudomany_alap = 30;
+var elohalott_bonusz = [0.6, 0.5, 0.4, 0.3, 0.2];
 
 /* Tudományok maximális értékének meghatározása vagy beállítása */
 function checkSciMax(setmax) {
@@ -132,8 +133,15 @@ function checkSciMax(setmax) {
 /* Hadsereg mutatóinak újraszámítása */
 function recalculateArmy() {
     checkSciMax(false);
+    var szint = $('#orszag_szint').val();
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
+    if (faj==7) {
+    	// élőhalott
+    	$('#orszag_szint').prop('disabled','');
+    } else {
+    	$('#orszag_szint').prop('disabled','disabled');
+    }
     var lakashelyzet = 1.0+($('#tudomany_lakashelyzet').val()/100);
     var katonak = epuletek.barakk * window.barakk_hely * lakashelyzet;
     var ijaszok = epuletek.ortorony * window.barakk_hely * lakashelyzet;
@@ -144,6 +152,12 @@ function recalculateArmy() {
         katonak = katonak * 1.2;
         varazslok = varazslok * 1.2;
         tolvajok = tolvajok * 1.2;
+    } else if (faj==7) {
+    	// élőhalott
+    	katonak = katonak * (1+(window.elohalott_bonusz[szint-1]));
+    	ijaszok = ijaszok * (1+(window.elohalott_bonusz[szint-1]));
+        varazslok = varazslok * (1+(window.elohalott_bonusz[szint-1]));
+        tolvajok = tolvajok * (1+(window.elohalott_bonusz[szint-1]));
     }
     $('#hadsereg_barakk_menny').html(parseInt(katonak));
     $('#hadsereg_torony_menny').html(parseInt(ijaszok));
@@ -158,6 +172,7 @@ function recalculateEco() {
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
     var szemelyiseg = $('#orszag_szemelyiseg').val();
+    var szint = $('#orszag_szint').val();
     var banyaszat = 1.0+($('#tudomany_banyaszat').val()/100);
     var mezogazdasag = 1.0+($('#tudomany_mezogazdasag').val()/100);
     /* Termelés */
@@ -246,6 +261,9 @@ function recalculateEco() {
     if (faj==4) {
         // törpe
         lakossag = lakossag * 1.2;
+    } else if (faj==7) {
+    	// élőhalott
+    	lakossag = lakossag * (1+(window.elohalott_bonusz[szint-1]));
     }
     $("#orszag_nepesseg").val(parseInt(lakossag));
     var emberszukseglet = epuletek.haz;
