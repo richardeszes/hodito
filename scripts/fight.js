@@ -92,7 +92,7 @@ function calculateDefPoints() {
     ortorony_bonusz = points * ortorony_szorzo;
     /* MF pontjai */
     var mf_bonusz = 0;
-    if (!$('#csata_vedekezo_szovetseg').is(':checked')) {
+    if (!($('#csata_vedekezo_szovetseg').is(':checked'))) {
         mf_bonusz = points * window.mf_szorzo;
     }
     /* Védelem bónusz */
@@ -174,7 +174,7 @@ function calculateAttPoints() {
     }
     /* MF bónusz */
     var mf_bonusz = 0
-    if (!$('#csata_tamado_szovetseg').is(':checked')) {
+    if (!($('#csata_tamado_szovetseg').is(':checked'))) {
         mf_bonusz = points * window.mf_szorzo;
     }
     /* Vérszomj bónusz */
