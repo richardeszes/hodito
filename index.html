@@ -202,6 +202,12 @@
                                                         <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_tamado_elit">
                                                     </div>
                                                 </div>
+                                                <div class="form-group" title="Támadásban résztvevő tábornokok száma">
+                                                    <label for="csata_tamado_tabornok" class="col-sm-12 control-label">Tábornok</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control filter" data-min="1" data-max="8" data-def="1" value="1" id="csata_tamado_tabornok">
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-6">
                                                 <div class="form-group">
@@ -249,12 +255,6 @@
                                                         <input type="checkbox" id="csata_tamado_erosebb">
                                                     </div>
                                                     <label for="csata_tamado_erosebb" class="col-sm-10 control-label" style='padding-top: 30px; padding-bottom: 4px;'>Alulról támad</label>
-                                                </div>
-                                                <div class="form-group" title="Támadásban résztvevő tábornokok száma">
-                                                    <label for="csata_tamado_tabornok" class="col-sm-12 control-label">Tábornok</label>
-                                                    <div class="col-sm-12">
-                                                        <input type="text" class="form-control filter" data-min="1" data-max="8" data-def="1" value="1" id="csata_tamado_tabornok">
-                                                    </div>
                                                 </div>
                                                 <div class="form-group" title="Vérszomj varázslat aktív-e">
                                                 	<div class="col-sm-2" style='padding-top: 30px; padding-bottom: 4px;'>
@@ -307,10 +307,16 @@
                                                         <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_elit">
                                                     </div>
                                                 </div>
-                                                <div class="form-group" title="Szabadságon lévő szövetségesek száma">
-                                                    <label for="csata_vedekezo_szovetseg_szabadsagon" class="col-sm-12 control-label">Szab. szövetségesek</label>
+                                                <div class="form-group" title="Védekező ország teljes földterülete">
+                                                    <label for="csata_vedekezo_terulet" class="col-sm-12 control-label">Össz. földterület</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_szovetseg_szabadsagon">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="200" value="200" id="csata_vedekezo_terulet">
+                                                    </div>
+                                                </div>
+                                                <div class="form-group" title="Védekező ország őrtornyainak száma">
+                                                    <label for="csata_vedekezo_ortornyok" class="col-sm-12 control-label">Őrtornyok száma</label>
+                                                    <div class="col-sm-12">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_ortornyok">
                                                     </div>
                                                 </div>
                                             </div>
@@ -362,16 +368,10 @@
                                                     </div>
                                                     <label for="csata_vedekezo_szovetseg" class="col-sm-10 control-label" style='padding-top: 30px; padding-bottom: 4px;'>Szövetség tagja</label>
                                                 </div>
-                                                <div class="form-group" title="Védekező ország teljes földterülete">
-                                                    <label for="csata_vedekezo_terulet" class="col-sm-12 control-label">Össz. földterület</label>
+                                                <div class="form-group" title="Szabadságon lévő szövetségesek száma">
+                                                    <label for="csata_vedekezo_szovetseg_szabadsagon" class="col-sm-12 control-label">Szab. szövetségesek</label>
                                                     <div class="col-sm-12">
-                                                        <input type="text" class="form-control filter" data-min="0" data-def="200" value="200" id="csata_vedekezo_terulet">
-                                                    </div>
-                                                </div>
-                                                <div class="form-group" title="Védekező ország őrtornyainak száma">
-                                                    <label for="csata_vedekezo_ortornyok" class="col-sm-12 control-label">Őrtornyok száma</label>
-                                                    <div class="col-sm-12">
-                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_ortornyok">
+                                                        <input type="text" class="form-control filter" data-min="0" data-def="0" value="0" id="csata_vedekezo_szovetseg_szabadsagon">
                                                     </div>
                                                 </div>
                                                 <div class="form-group" title="Védelem varázslat aktív-e">
