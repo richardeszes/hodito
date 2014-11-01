@@ -195,6 +195,9 @@ function calculateAttPoints() {
     if (faj==2) {
         // ork
         faji_bonusz = points * 0.3;
+    } else if (faj==6) {
+    	// óriás
+    	faji_bonusz = points * 0.15;
     } else if (faj==7) {
         // élőhalott
         faji_bonusz = points * window.elohalott_szint[szint-1];
