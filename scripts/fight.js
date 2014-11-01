@@ -67,7 +67,7 @@ function calculateDefPoints() {
     var toronyij_szorzo = window.vedo.toronyij;
     if (faj==3) {
         // elf
-        toronyij_szorzo = 14;
+        toronyij_szorzo += 2;
     }
     points += ijasz * window.vedo.ijasz;
     points += toronyij * toronyij_szorzo;
@@ -174,7 +174,7 @@ function calculateAttPoints() {
     if (tabornok==0) {
         tabornok = 1;
     }
-    var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok];
+    var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok-1];
     /* Erősebb megtámadásáért járó bónusz */
     var erosebb_bonusz = 0;
     if ($('#csata_tamado_erosebb').is(':checked')) {
