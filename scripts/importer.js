@@ -64,3 +64,37 @@ function importList() {
     recalculateBuildShare();
     $('#importalas').modal('hide');
 }
+
+function saveDatasheet() {
+    localStorage.setItem('epuletek', JSON.stringify(getBuilds()));
+    localStorage.setItem('faj', $('#orszag_faj').val());
+    localStorage.setItem('szemelyiseg', $('#orszag_szemelyiseg').val());
+    alert("Az adatok mentése megtörtént.");
+}
+
+function loadDatasheet() {
+    $('#orszag_faj').val(localStorage.getItem('faj'));
+    $('#orszag_szemelyiseg').val(localStorage.getItem('szemelyiseg'));
+    var epuletek = JSON.parse(localStorage.getItem('epuletek'));
+    $('#epulet_ures').val(epuletek.ures);
+    $('#epulet_haz').val(epuletek.haz);
+    $('#epulet_barakk').val(epuletek.barakk);
+    $('#epulet_kovacsmuhely').val(epuletek.kovacsmuhely);
+    $('#epulet_tanya').val(epuletek.tanya);
+    $('#epulet_konyvtar').val(epuletek.konyvtar);
+    $('#epulet_raktar').val(epuletek.raktar);
+    $('#epulet_fatelep').val(epuletek.fatelep);
+    $('#epulet_kobanya').val(epuletek.kobanya);
+    $('#epulet_fembanya').val(epuletek.fembanya);
+    $('#epulet_agyagbanya').val(epuletek.agyagbanya);
+    $('#epulet_dragakobanya').val(epuletek.dragakobanya);
+    $('#epulet_ortorony').val(epuletek.ortorony);
+    $('#epulet_kocsma').val(epuletek.kocsma);
+    $('#epulet_templom').val(epuletek.templom);
+    $('#epulet_korhaz').val(epuletek.korhaz);
+    $('#epulet_bank').val(epuletek.bank);
+    $('#epulet_piac').val(epuletek.piac);
+    recalculateArmy();
+    recalculateEco();
+    recalculateBuildShare();
+}
