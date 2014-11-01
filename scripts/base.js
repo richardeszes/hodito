@@ -3,7 +3,7 @@ function validateValue(elem) {
 	var max = $(elem).data('max');
 	var def = $(elem).data('default');
 	var value = $(elem).val();
-	if (value=='') {
+	if (isNaN(value)) {
 		if (def!=undefined) {
 			$(elem).val(def);
 		} else {
