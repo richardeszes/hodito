@@ -22,3 +22,6 @@ Látogassuk meg a http://eszes.info/hodito/ címet vagy töltsük le a HTML és 
 A kalkulátor használatához aktív internetkapcsolat szükséges a jQuery és Bootstrap JavaScript könyvtárak és CSS-ek eléréséhez!
 
 További információk a wikiben: https://github.com/richardeszes/hodito/wiki
+
+### Köszönet
+@berkesma - képletek ellenőrzése és javítása
