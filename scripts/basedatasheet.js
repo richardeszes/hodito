@@ -74,13 +74,15 @@ function checkSciMax(setmax) {
     }
     if (szemelyiseg==8) {
         // tudós
-        ipar += 5;
-        gazdasag += 5;
-        mezogazdasag += 5;
-        banyaszat += 5;
-        hadugy += 5;
-        magia += 5;
-        tolvajlas += 5;
+        if (faj!=7) {
+            ipar += 5;
+            gazdasag += 5;
+            mezogazdasag += 5;
+            banyaszat += 5;
+            hadugy += 5;
+            magia += 5;
+            tolvajlas += 5;
+        }
     }
     if (setmax) {
         $('#tudomany_ipar').val(ipar);
@@ -188,12 +190,14 @@ function recalculateEco() {
     }
     if (szemelyiseg==7) {
         // gazdálkodó
-        gabona = gabona * 1.1;
-        fa = fa * 1.1;
-        ko = ko * 1.1;
-        fem = fem * 1.1;
-        agyag = agyag * 1.1;
-        dragako = dragako * 1.1;
+        if (faj!=7) {
+            gabona = gabona * 1.1;
+            fa = fa * 1.1;
+            ko = ko * 1.1;
+            fem = fem * 1.1;
+            agyag = agyag * 1.1;
+            dragako = dragako * 1.1;
+        }
     }
     $('#gazdasag_fa_termeles').html(parseInt(fa));
     $('#gazdasag_ko_termeles').html(parseInt(ko));

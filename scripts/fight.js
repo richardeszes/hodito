@@ -44,7 +44,9 @@ function calculateDefPoints() {
     }
     if ($('#csata_vedekezo_tudos').is(':checked')) {
         // tudós
-        lakashelyzeti_szorzo += 5;
+        if (faj!=7) {
+            lakashelyzeti_szorzo += 5;
+        }
     }
     if ((ortornyok*40) < ijasz) {
         if (faj==4) {
@@ -122,7 +124,9 @@ function calculateDefPoints() {
     }
     if ($('#csata_vedekezo_tudos').is(':checked')) {
         // tudós
-        hadugyi_szorzo += 5;
+        if (faj!=7) {
+            hadugyi_szorzo += 5;
+        }
     }
     hadugyi_bonusz = points * (tudomany_szorzo/100);
     points += hadugyi_bonusz;
@@ -205,7 +209,9 @@ function calculateAttPoints() {
     }
     if ($('#csata_tamado_tudos').is(':checked')) {
         // tudós
-        tudomany_szorzo += 5;
+        if (faj!=7) {
+            tudomany_szorzo += 5;
+        }
     }
     tudomany_bonusz = points * (tudomany_szorzo/100);
     points += tudomany_bonusz;
