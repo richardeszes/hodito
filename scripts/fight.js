@@ -244,8 +244,8 @@ function showFightResult() {
         $("#csata_tamado").css("color", "red");
     } else {
         /* A támadók nyertek */
-        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+def+" pont)</span>");
-        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+att+" pont)</span>");
+        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+att+" pont)</span>");
+        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+def+" pont)</span>");
         $("#csata_tamado").css("color", "green");
         $("#csata_vedekezo").css("color", "red");
     }
