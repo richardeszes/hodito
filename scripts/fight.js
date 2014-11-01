@@ -60,8 +60,13 @@ function calculateDefPoints() {
         var toronyij = ijasz;
         ijasz = 0;
     }
+    var toronyij_szorzo = window.vedo.toronyij;
+    if (faj==3) {
+        // elf
+        toronyij_szorzo = 14;
+    }
     points += ijasz * window.vedo.ijasz;
-    points += toronyij * window.vedo.toronyij;
+    points += toronyij * toronyij_szorzo;
     if (moral==0) {
         moral = 100;
     }
