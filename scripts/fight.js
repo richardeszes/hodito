@@ -169,12 +169,20 @@ function calculateDefPoints() {
 	    }
     }
     hadugyi_bonusz = points * (hadugyi_szorzo/100);
+    console.log('[VÉD] base='+points);
     points += hadugyi_bonusz;
     points += faji_bonusz;
     points += mf_bonusz;
     points += ortorony_bonusz;
     points += vedelem_bonusz;
     points += szabadsag_bonusz;
+    console.log('[VÉD] hadugyi_bonusz='+hadugyi_bonusz);
+    console.log('[VÉD] faji_bonusz='+faji_bonusz);
+    console.log('[VÉD] mf_bonusz='+mf_bonusz);
+    console.log('[VÉD] ortorony_bonusz='+ortorony_bonusz);
+    console.log('[VÉD] vedelem_bonusz='+vedelem_bonusz);
+    console.log('[VÉD] szabadsag_bonusz='+szabadsag_bonusz);
+    console.log('[VÉD] sum='+points);
     return points;
 }
 
@@ -267,6 +275,7 @@ function calculateAttPoints() {
     	var tudomany_szorzo = hadugy;
     }
     tudomany_bonusz = points * (tudomany_szorzo/100);
+    console.log('[TÁM] base='+points);
     points += tudomany_bonusz;
     points += faji_bonusz;
     points -= faji_malusz;
@@ -274,6 +283,14 @@ function calculateAttPoints() {
     points += erosebb_bonusz;
     points += mf_bonusz;
     points += verszomj_bonusz;
+    console.log('[TÁM] tudomany_bonusz='+tudomany_bonusz);
+    console.log('[TÁM] faji_bonusz='+faji_bonusz);
+    console.log('[TÁM] faji_malusz='+faji_malusz);
+    console.log('[TÁM] tabornok_bonusz='+tabornok_bonusz);
+    console.log('[TÁM] erosebb_bonusz='+erosebb_bonusz);
+    console.log('[TÁM] mf_bonusz='+mf_bonusz);
+    console.log('[TÁM] verszomj_bonusz='+verszomj_bonusz);
+    console.log('[TÁM] sum='+points);
     return points;
 }
 
