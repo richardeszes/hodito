@@ -6,12 +6,16 @@ var erosebb_szorzo = 0.1;
 /* Védő értékek */
 var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, toronyij:12, lovas:2, elit:5};
 
+/* Élőhalott szintenkénti bónusz */
+var elohalott_szint = [0.4, 0.3, 0.2, 0.1, 0];
+
 var mf_szorzo = 0.4;
 var vedelem_szorzo = 0.3;
 var verszomj_szorzo = 0.3;
 
 function calculateDefPoints() {
     var faj = $('#csata_vedekezo_faj').val();
+    var szint = $('#csata_szint').val();
     var terulet = parseInt(0+$('#csata_vedekezo_terulet').val());
     var ortornyok = parseInt(0+$('#csata_vedekezo_ortornyok').val());
     var moral = parseInt(0+$('#csata_vedekezo_moral').val());
@@ -108,6 +112,9 @@ function calculateDefPoints() {
     } else if (faj==3) {
         // félelf
         faji_bonusz = points * 0.1;
+    } else if (faj==7) {
+        // élőhalott
+        faji_bonusz = points * window.elohalott_szint[szint-1];
     }
     /* Tudomány bónusz */
     var hadugyi_bonusz = 0;
@@ -144,6 +151,7 @@ function calculateDefPoints() {
 
 function calculateAttPoints() {
     var faj = $('#csata_tamado_faj').val();
+    var szint = $('#csata_szint').val();
     var moral = parseInt(0+$('#csata_tamado_moral').val());
     var katona = parseInt(0+$('#csata_tamado_katona').val());
     var vedo = parseInt(0+$('#csata_tamado_vedo').val());
@@ -187,6 +195,9 @@ function calculateAttPoints() {
     if (faj==2) {
         // ork
         faji_bonusz = points * 0.3;
+    } else if (faj==7) {
+        // élőhalott
+        faji_bonusz = points * window.elohalott_szint[szint-1];
     }
     /* Faji maluszok */
     var faji_malusz = 0;
