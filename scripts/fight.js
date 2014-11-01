@@ -4,7 +4,7 @@ var tabornokok_bonusz = [0, 0.03, 0.05, 0.06, 0.07, 0.08, 0.1, 0.2];
 var erosebb_szorzo = 0.1;
 
 /* Védő értékek */
-var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, toronyij:12, lovas:2, elit:5};
+var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, lovas:2, elit:5};
 var szabadsag = [0, 0.1, 0.2, 0.3];
 
 /* Élőhalott szintenkénti bónusz */
@@ -33,13 +33,17 @@ function calculateDefPoints() {
     points += tamado * window.vedo.tamado;
     points += lovas * window.vedo.lovas;
     points += elit * window.vedo.elit;
+    points += ijasz * window.vedo.ijasz;
     /* Toronyíjászok pontjai */
     var lakashelyzet = parseInt(0+$('#csata_vedekezo_lakashelyzet_tudomany').val());
     if (lakashelyzet==0) {
 	    var lakashelyzeti_szorzo = window.tudomany_alap;
 	    if (faj==3) {
-	        // elf
+	        // félelf
 	        lakashelyzeti_szorzo = 40;
+	    } else if (faj==4) {
+	    	// törpe
+	    	lakashelyzeti_szorzo = 56;
 	    } else if (faj==5) {
 	        // gnóm
 	        lakashelyzeti_szorzo = 50;
@@ -48,18 +52,12 @@ function calculateDefPoints() {
 	        lakashelyzeti_szorzo = 40;
 	    } else if (faj==7) {
 	        // élőhalott
-	        lakashelyzeti_szorzo = 0;
-	    }
-	    if ($('#csata_vedekezo_tudos').is(':checked')) {
-	        // tudós
-	        if (faj!=7) {
-	            lakashelyzeti_szorzo += 5;
-	        }
+	        lakashelyzeti_szorzo = window.elohalott_bonusz[szint-1] * 100;
 	    }
     } else {
     	lakashelyzeti_szorzo = lakashelyzet;
     }
-    if ((ortornyok*40) < ijasz) {
+    /*if ((ortornyok*40) < ijasz) {
         if (faj==4) {
             // törpe
             var toronyij = ((ortornyok*40)*1.2)*(1+(lakashelyzeti_szorzo/100));
@@ -73,8 +71,18 @@ function calculateDefPoints() {
     } else {
         var toronyij = ijasz;
         ijasz = 0;
-    }
-    var toronyij_szorzo = window.vedo.toronyij;
+    }*/
+    var toronyij_szorzo = window.vedo.ijasz;
+	if (faj == 1) {
+		//elf
+		toronyij_szorzo = 8;
+	}
+	if (ijasz > (ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)))) {
+		toronyij = ijasz;
+	} else {
+		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100));
+	}
+    var toronyij_szorzo = window.vedo.ijasz;
     if (faj==3) {
         // elf
         toronyij_szorzo += 2;
@@ -110,7 +118,7 @@ function calculateDefPoints() {
         mf_bonusz = points * window.mf_szorzo;
     }
     /* Védelem bónusz */
-    var vedelem_bonusz = 0
+    var vedelem_bonusz = 0;
     if ($('#csata_vedekezo_vedelem').is(':checked')) {
         vedelem_bonusz = points * window.vedelem_szorzo;
     }
