@@ -100,6 +100,11 @@ function calculateDefPoints() {
     console.log('[VÉD] vedelem_bonusz='+vedelem_bonusz);
     console.log('[VÉD] szabadsag_bonusz='+szabadsag_bonusz);
     console.log('[VÉD] sum='+points);
+    // Terület alapú védelem
+    if (points < terulet) {
+    	points = terulet;
+    	console.log('[VÉD] points<terulet -> sum='+points);
+    }
     return points;
 }
 
