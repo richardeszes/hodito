@@ -35,10 +35,6 @@ function calculateDefPoints() {
 		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj].ferohely;
 	}
     var toronyij_szorzo = window.vedo.ijasz;
-    if (faj==2) {
-        // félelf?
-        toronyij_szorzo += 2;
-    }
     points += ijasz * window.vedo.ijasz;
     points += toronyij * toronyij_szorzo;
     points = points * (moral/100);
