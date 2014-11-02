@@ -208,7 +208,7 @@ var elohalott_bonusz = [60, 50, 40, 30, 20];
 
 /* Támadó értékek */
 var tamado = {katona:1, vedo:0, tamado:4, ijasz:2, lovas:6, elit:5};
-var tabornokok_bonusz = [0, 0.03, 0.05, 0.06, 0.07, 0.08, 0.1, 0.2];
+var tabornokok_bonusz = [0, 0, 0.03, 0.05, 0.06, 0.07, 0.08, 0.1, 0.2];
 var erosebb_szorzo = 0.1;
 
 /* Védő értékek */

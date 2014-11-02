@@ -1,9 +1,9 @@
 /* Tudományok maximális értékének meghatározása vagy beállítása */
 function checkSciMax(setmax) {
-    var faj = $('#orszag_faj').val()-1;
+    var faj = $('#orszag_faj').val();
     var szemelyiseg = $('#orszag_szemelyiseg').val();
     var bonusz = 0;
-    if (szemelyiseg==8) {
+    if (szemelyiseg==7) {
     	bonusz = window.tudomany[faj].tudos;
     }
     if (setmax) {
@@ -46,10 +46,10 @@ function checkSciMax(setmax) {
 /* Hadsereg mutatóinak újraszámítása */
 function recalculateArmy() {
     checkSciMax(false);
-    var szint = $('#orszag_szint').val()-1;
+    var szint = $('#orszag_szint').val();
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
-    if (faj==7) {
+    if (faj==6) {
     	// élőhalott
     	$('#orszag_szint').prop('disabled','');
     } else {
@@ -60,12 +60,12 @@ function recalculateArmy() {
     var ijaszok = epuletek.ortorony * window.barakk_hely * lakashelyzet;
     var varazslok = epuletek.templom * window.templom_hely * lakashelyzet;
     var tolvajok = epuletek.kocsma * window.kocsma_hely * lakashelyzet;
-    if (faj==4) {
+    if (faj==3) {
         // törpe
         katonak = katonak * 1.2;
         varazslok = varazslok * 1.2;
         tolvajok = tolvajok * 1.2;
-    } else if (faj==7) {
+    } else if (faj==6) {
     	// élőhalott
     	katonak = katonak * (1+(window.elohalott_bonusz[szint]/100));
     	ijaszok = ijaszok * (1+(window.elohalott_bonusz[szint]/100));
@@ -101,22 +101,20 @@ function recalculateWarehouse() {
     var fegyver = epuletek.kovacsmuhely * window.fegyver_szorzo;
     var gabona = epuletek.tanya * window.tanya_szorzo * mezogazdasag;
     /* Faji bónuszok */
-    gabona = gabona * window.termeles[faj-1].gabona;
-    fa = fa * window.termeles[faj-1].fa;
-    ko = ko * window.termeles[faj-1].ko;
-    fem = fem * window.termeles[faj-1].fem;
-    agyag = agyag * window.termeles[faj-1].agyag;
-    dragako = dragako * window.termeles[faj-1].dragako;
-    if (szemelyiseg==7) {
+    gabona = gabona * window.termeles[faj].gabona;
+    fa = fa * window.termeles[faj].fa;
+    ko = ko * window.termeles[faj].ko;
+    fem = fem * window.termeles[faj].fem;
+    agyag = agyag * window.termeles[faj].agyag;
+    dragako = dragako * window.termeles[faj].dragako;
+    if (szemelyiseg==6) {
         // gazdálkodó
-        if (faj!=7) {
-            gabona = gabona * 1.1;
-            fa = fa * 1.1;
-            ko = ko * 1.1;
-            fem = fem * 1.1;
-            agyag = agyag * 1.1;
-            dragako = dragako * 1.1;
-        }
+        gabona = gabona * 1.1;
+        fa = fa * 1.1;
+        ko = ko * 1.1;
+        fem = fem * 1.1;
+        agyag = agyag * 1.1;
+        dragako = dragako * 1.1;
     }
     $('#gazdasag_fa_termeles').html(parseInt(fa));
     $('#gazdasag_ko_termeles').html(parseInt(ko));
@@ -126,13 +124,13 @@ function recalculateWarehouse() {
     $('#gazdasag_fegyver_termeles').html(parseInt(fegyver));
     $('#gazdasag_gabona_termeles').html(parseInt(gabona));
     /* Férőhelyek */
-    var r_gabona = epuletek.raktar * window.raktar_gabona_szorzo * window.termeles[faj-1].raktar;
-    var r_fa = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj-1].raktar;
-    var r_ko = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj-1].raktar;
-    var r_fem = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj-1].raktar;
-    var r_agyag = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj-1].raktar;
-    var r_dragako = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj-1].raktar;
-    var r_fegyver = epuletek.raktar * window.raktar_fegyver_szorzo * window.termeles[faj-1].raktar;
+    var r_gabona = epuletek.raktar * window.raktar_gabona_szorzo * window.termeles[faj].raktar;
+    var r_fa = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj].raktar;
+    var r_ko = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj].raktar;
+    var r_fem = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj].raktar;
+    var r_agyag = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj].raktar;
+    var r_dragako = epuletek.raktar * window.raktar_nyersanyag_szorzo * window.termeles[faj].raktar;
+    var r_fegyver = epuletek.raktar * window.raktar_fegyver_szorzo * window.termeles[faj].raktar;
     $('#gazdasag_fa_ferohely').html(parseInt(r_fa));
     $('#gazdasag_ko_ferohely').html(parseInt(r_ko));
     $('#gazdasag_fem_ferohely').html(parseInt(r_fem));
@@ -145,16 +143,16 @@ function recalculateWarehouse() {
 function recalculatePopulation() {
 	var epuletek = getBuilds();
 	var faj = $('#orszag_faj').val();
-	var szint = $('#orszag_szint').val()-1;
+	var szint = $('#orszag_szint').val();
 	var gabona = parseInt($('#gazdasag_gabona_termeles').html());
 	var r_gabona = parseInt($('#gazdasag_gabona_ferohely').html());
 	/* Lakosság */
     var lakashelyzet = 1.0+($('#tudomany_lakashelyzet').val()/100);
     var lakossag = ((epuletek.haz * window.haz_szorzo) + (epuletek.ures * window.ures_szorzo)) * lakashelyzet;
-    if (faj==4) {
+    if (faj==3) {
         // törpe
         lakossag = lakossag * 1.2;
-    } else if (faj==7) {
+    } else if (faj==6) {
     	// élőhalott
     	lakossag = lakossag * (1+(window.elohalott_bonusz[szint]/100));
     }
@@ -182,7 +180,7 @@ function recalculatePopulation() {
     /* Gabona egyenleg */
     var hadsereg = parseInt($('#hadsereg_barakk_menny').html()) + parseInt($('#hadsereg_templom_menny').html()) + parseInt($('#hadsereg_kocsma_menny').html());
     var gabona_szukseglet = parseInt((lakossag+hadsereg) / window.gabona_fogyasztas);
-    if (faj==7) {
+    if (faj==6) {
         // élőhalott
         gabona_szukseglet = 0;
     }

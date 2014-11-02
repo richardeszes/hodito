@@ -20,30 +20,30 @@ function calculateDefPoints() {
     points += ijasz * window.vedo.ijasz;
     /* Toronyíjászok pontjai */
     var lakashelyzeti_szorzo = parseInt($('#csata_vedekezo_lakashelyzet_tudomany').val());
-    if (faj==7) {
+    if (faj==6) {
 	    // élőhalott
-	    lakashelyzeti_szorzo = window.elohalott_bonusz[szint-1];
+	    lakashelyzeti_szorzo = window.elohalott_bonusz[szint];
 	}
     var toronyij_szorzo = window.vedo.ijasz;
-	if (faj == 1) {
-		//elf
+	if (faj == 0) {
+		// elf
 		toronyij_szorzo = 8;
 	}
-	if (ijasz > (ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj-1].ferohely)) {
+	if (ijasz > (ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj].ferohely)) {
 		toronyij = ijasz;
 	} else {
-		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj-1].ferohely;
+		toronyij = ortornyok * 40 * (1+(lakashelyzeti_szorzo/100)) * window.bonuszok[faj].ferohely;
 	}
     var toronyij_szorzo = window.vedo.ijasz;
-    if (faj==3) {
-        // elf
+    if (faj==2) {
+        // félelf?
         toronyij_szorzo += 2;
     }
     points += ijasz * window.vedo.ijasz;
     points += toronyij * toronyij_szorzo;
     points = points * (moral/100);
     /* Tornyok pontjai */
-    if (faj==5) {
+    if (faj==4) {
         // gnóm
         if (terulet==0 || ortornyok==0) {
             var ortorony_szorzo = 0;
@@ -72,10 +72,10 @@ function calculateDefPoints() {
         vedelem_bonusz = points * window.vedelem_szorzo;
     }
     /* Faji bónuszok */
-    var faji_bonusz = points * window.bonuszok[faj-1].vedekezes;
-    if (faj==7) {
+    var faji_bonusz = points * window.bonuszok[faj].vedekezes;
+    if (faj==6) {
         // élőhalott
-        faji_bonusz = points * window.elohalott_szint[szint-1];
+        faji_bonusz = points * window.elohalott_szint[szint];
     }
     /* Tudomány bónusz */
     var hadugyi_szorzo = parseInt($('#csata_vedekezo_hadugy_tudomany').val());
@@ -126,7 +126,7 @@ function calculateAttPoints() {
     points += lovas * window.tamado.lovas;
     points += elit * window.tamado.elit;
     points = points * (moral/100);
-    var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok-1];
+    var tabornok_bonusz = points * window.tabornokok_bonusz[tabornok];
     /* Erősebb megtámadásáért járó bónusz */
     var erosebb_bonusz = 0;
     if ($('#csata_tamado_erosebb').is(':checked')) {
@@ -143,14 +143,14 @@ function calculateAttPoints() {
         verszomj_bonusz = points * window.verszomj_szorzo;
     }
     /* Faji bónuszok */
-    var faji_bonusz = points * window.bonuszok[faj-1].tamadas;
-    if (faj==7) {
+    var faji_bonusz = points * window.bonuszok[faj].tamadas;
+    if (faj==6) {
         // élőhalott
-        faji_bonusz = points * window.elohalott_szint[szint-1];
+        faji_bonusz = points * window.elohalott_szint[szint];
     }
     /* Faji maluszok */
     var faji_malusz = 0;
-    if (faj==3) {
+    if (faj==2) {
         // félelf
         faji_malusz = points * 0.1;
     }
@@ -199,7 +199,7 @@ function showFightResult() {
 }
 
 function setAttSciMax(elem) {
-	var faj = $('#csata_tamado_faj').val()-1;
+	var faj = $('#csata_tamado_faj').val();
     var tudomany_szorzo = window.tudomany[faj].hadugy;
 	if ($('#csata_tamado_tudos').is(':checked')) {
 		// tudós
@@ -209,7 +209,7 @@ function setAttSciMax(elem) {
 }
 
 function setDefSciMax(elem) {
-	var faj = $('#csata_vedekezo_faj').val()-1;
+	var faj = $('#csata_vedekezo_faj').val();
     if (elem=='hadugy') {
 	    var tudomany_szorzo = window.tudomany[faj].hadugy;
 		if ($('#csata_vedekezo_tudos').is(':checked')) {
