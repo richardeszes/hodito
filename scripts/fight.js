@@ -27,6 +27,9 @@ function szamolVedoertek() {
     pontok += toronyij * toronyij_vedoertek;
     
     /* --- Morál --- */
+    if (parseInt($('#csata_vedekezo_moral').val()) == 0) {
+    	return 0;
+    }
     pontok = pontok * (parseInt($('#csata_vedekezo_moral').val())/100);
     
     /* --- Őrtornyok --- */
@@ -92,11 +95,18 @@ function szamolTamadoertek() {
     pontok += parseInt($('#csata_tamado_elit').val()) * window.egysegek.elit.tamadoertek;
     
     /* --- Morál --- */
+    if (parseInt($('#csata_tamado_moral').val()) == 0) {
+    	return 0;
+    }
     pontok = pontok * (parseInt($('#csata_tamado_moral').val())/100);
     
+    
     /* --- Tábornokok --- */
-    var faj = parseInt($('#csata_tamado_tabornok').val());
-    pontok = pontok * window.tabornokok_bonusz[faj];
+    var tabornokok = parseInt($('#csata_tamado_tabornok').val());
+    if (tabornokok == 0) {
+    	return 0;
+    }
+    pontok = pontok * window.tabornokok_bonusz[tabornokok];
     
     /* --- Erősebb megtámadása --- */
     if ($('#csata_tamado_erosebb').is(':checked')) {
@@ -114,6 +124,7 @@ function szamolTamadoertek() {
     }
     
     /* --- Faji bónuszok/maluszok --- */
+    var faj = $('#csata_tamado_faj').val();
     if (faj==6) {
         // élőhalott
         pontok = pontok * window.elohalott_szint[szint];
@@ -127,29 +138,29 @@ function szamolTamadoertek() {
     return pontok
 }
 
-function showFightResult() {
+function mutatCsataEredmeny() {
     $("#csata_vedekezo").html("Védekező");
     $("#csata_tamado").html("Támadó");
     $("#csata_vedekezo").css("color", "");
     $("#csata_tamado").css("color", "");
-    var def = parseInt(szamolVedoertek());
-    var att = parseInt(szamolTamadoertek());
-    if (def > att) {
+    var ved = parseInt(szamolVedoertek());
+    var tam = parseInt(szamolTamadoertek());
+    if (ved > tam) {
         /* A védők nyertek */
-        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+def+" pont)</span>");
-        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+att+" pont)</span>");
+        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+ved+" pont)</span>");
+        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+tam+" pont)</span>");
         $("#csata_vedekezo").css("color", "green");
         $("#csata_tamado").css("color", "red");
     } else {
         /* A támadók nyertek */
-        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+att+" pont)</span>");
-        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+def+" pont)</span>");
+        $("#csata_tamado").html($("#csata_tamado").html()+" <span style='font-size: smaller'>("+tam+" pont)</span>");
+        $("#csata_vedekezo").html($("#csata_vedekezo").html()+" <span style='font-size: smaller'>("+ved+" pont)</span>");
         $("#csata_tamado").css("color", "green");
         $("#csata_vedekezo").css("color", "red");
     }
 }
 
-function setAttSciMax(elem) {
+function beallitTamadoMaxTud(elem) {
 	var faj = $('#csata_tamado_faj').val();
     var tudomany_szorzo = window.fajok[faj].tudomany.hadugy;
 	if ($('#csata_tamado_tudos').is(':checked')) {
@@ -160,7 +171,7 @@ function setAttSciMax(elem) {
 	$('#'+elem).val(tudomany);
 }
 
-function setDefSciMax(elem) {
+function beallitVedekezoMaxTud(elem) {
 	var faj = $('#csata_vedekezo_faj').val();
     if (elem=='hadugy') {
 	    var tudomany_szorzo = window.fajok[faj].tudomany.hadugy;

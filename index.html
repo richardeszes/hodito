@@ -88,9 +88,9 @@
                 $(document).on("dblclick", "h3", function (elem) {
                     $(this).parent().children('.hideable').toggle();
                 });
-                $(document).on("change", ".army", function (e) {recalculateArmy();});
-                $(document).on("change", ".eco", function (e) {recalculateEco();});
-                $(document).on("change", ".build", function (e) {recalculateBuildShare();});
+                $(document).on("change", ".army", function (e) {szamolHadero();});
+                $(document).on("change", ".eco", function (e) {szamolGazdasag();});
+                $(document).on("change", ".build", function (e) {szamolEpuletArany();});
                 $(document).on("change", ".filter", function (e) {validateValue(this);});
             });
         </script>
@@ -245,7 +245,7 @@
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control filter" data-min="0" data-max="55" data-def="30" value="30" id="csata_tamado_tudomany">
                                                     </div>
-                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setAttSciMax('csata_tamado_tudomany')"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="beallitTamadoMaxTud('csata_tamado_tudomany')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
                                                 <div class="form-group" title="A támadó ország szövetség tagja-e?">
                                                 	<div class="col-sm-2" style='padding-top: 30px; padding-bottom: 4px;'>
@@ -350,14 +350,14 @@
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control filter" data-min="0" data-def="30" data-max="55" value="30" id="csata_vedekezo_hadugy_tudomany">
                                                     </div>
-                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setDefSciMax('hadugy')"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="beallitVedekezoMaxTud('hadugy')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
                                                 <div class="form-group" title="Lakáshelyzeti tudomány bónusza (%)">
                                                     <label for="csata_vedekezo_lakashelyzet_tudomany" class="col-sm-12 control-label">Lakásh. tud.</label>
                                                     <div class="col-sm-9">
                                                         <input type="text" class="form-control filter" data-min="0" data-def="30" data-max="55" value="30" id="csata_vedekezo_lakashelyzet_tudomany">
                                                     </div>
-                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="setDefSciMax('lakashelyzet')"><span class="glyphicon glyphicon-arrow-up"></span></button>
+                                                    <button type="button" class="btn btn-default pull-right" title="Maximum" onclick="beallitVedekezoMaxTud('lakashelyzet')"><span class="glyphicon glyphicon-arrow-up"></span></button>
                                                 </div>
                                                 <div class="form-group" title="Védekező ország katonai morálja">
                                                     <label for="csata_vedekezo_moral" class="col-sm-12 control-label">Kat. morál</label>
@@ -392,7 +392,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Bezárás</button>
-                        <button type="button" class="btn btn-primary" onclick="showFightResult();">Szimulálás</button>
+                        <button type="button" class="btn btn-primary" onclick="mutatCsataEredmeny();">Szimulálás</button>
                     </div>
                 </div>
             </div>
@@ -628,7 +628,7 @@
                         </div>
                         <div class="col-md-12 col-sm-12">
                         <h3>Tudomány <span class="glyphicon glyphicon-info-sign pull-right"></span></h3>
-                        <button type="button" class="btn btn-info" onclick="checkSciMax(true);"><span class="glyphicon glyphicon-arrow-up"></span> Max</button>
+                        <button type="button" class="btn btn-info" onclick="ellenorizTudomanyMax(true);"><span class="glyphicon glyphicon-arrow-up"></span> Max</button>
                         <form role="form" class="hideable">
                             <div class="form-group">
                                 <label for="tudomany_ipar" class="col-sm-3 control-label">Ipar</label>

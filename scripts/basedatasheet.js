@@ -1,5 +1,5 @@
 /* Tudományok maximális értékének meghatározása vagy beállítása */
-function checkSciMax(setmax) {
+function ellenorizTudomanyMax(setmax) {
     var faj = $('#orszag_faj').val();
     var bonusz = 0;
     if ($('#orszag_szemelyiseg').val()==7) {
@@ -51,8 +51,8 @@ function checkSciMax(setmax) {
 }
 
 /* Hadsereg mutatóinak újraszámítása */
-function recalculateArmy() {
-    checkSciMax(false);
+function szamolHadero() {
+	ellenorizTudomanyMax(false);
     var szint = $('#orszag_szint').val();
     var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
@@ -87,13 +87,13 @@ function recalculateArmy() {
 }
 
 /* Gazdasági mutatók újraszámítása */
-function recalculateEco() {
-    checkSciMax(false);
-    recalculateWarehouse();
-    recalculatePopulation();
+function szamolGazdasag() {
+    ellenorizTudomanyMax(false);
+    szamolRaktar();
+    szamolNepesseg();
 }
 
-function recalculateWarehouse() {
+function szamolRaktar() {
 	var epuletek = getBuilds();
     var faj = $('#orszag_faj').val();
     var banyaszat = 1.0+($('#tudomany_banyaszat').val()/100);
@@ -146,7 +146,7 @@ function recalculateWarehouse() {
     $('#gazdasag_gabona_ferohely').html(parseInt(r_gabona));
 }
 
-function recalculatePopulation() {
+function szamolNepesseg() {
 	var epuletek = getBuilds();
 	var faj = $('#orszag_faj').val();
 	/* Lakosság */
@@ -277,7 +277,7 @@ function getBuilds() {
 }
 
 /* Épületek arányának kiszámítása */
-function recalculateBuildShare() {
+function szamolEpuletArany() {
     var terulet = getBuildsCount();
     var epuletek = getBuilds();
     $('#epulet_ures_arany').html('('+parseInt(epuletek.ures/(terulet/100))+'%)');

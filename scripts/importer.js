@@ -133,7 +133,7 @@ function loadDatasheet() {
     $('#tudomany_hadugy').val(tudomany.hadugy);
     $('#tudomany_magia').val(tudomany.magia);
     $('#tudomany_tolvajlas').val(tudomany.tolvajlas);
-    recalculateArmy();
-    recalculateEco();
-    recalculateBuildShare();
+    szamolHadero();
+    szamolGazdasag();
+    szamolEpuletArany();
 }
