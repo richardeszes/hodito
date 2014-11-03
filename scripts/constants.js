@@ -1,188 +1,249 @@
 /* Faji változók */
-var tudomany= [{
-				// elf
-				ipar: 30, // Ipar tudományban elérhető maximum
-				gazdasag: 30,
-				mezogazdasag: 30,
-				lakashelyzet: 30,
-				banyaszat: 30,
-				hadugy: 40,
-				magia: 40,
-				tolvajlas: 30,
-				tudos: 5 // Tudós tulajdonság +%
-		 	},
-		 	{
-		 		// ork
-				ipar: 30,
-				gazdasag: 30,
-				mezogazdasag: 40,
-				lakashelyzet: 30,
-				banyaszat: 30,
-				hadugy: 40,
-				magia: 30,
-				tolvajlas: 30,
-				tudos: 5
-			},
-			{
-				// félelf
-				ipar: 30,
-				gazdasag: 30,
-				mezogazdasag: 30,
-				lakashelyzet: 40,
-				banyaszat: 30,
-				hadugy: 30,
-				magia: 30,
-				tolvajlas: 40,
-				tudos: 5
-			},
-			{
-				// törpe
-				ipar: 40,
-				gazdasag: 30,
-				mezogazdasag: 30,
-				lakashelyzet: 30,
-				banyaszat: 30,
-				hadugy: 40,
-				magia: 30,
-				tolvajlas: 30,
-				tudos: 5
-			},
-		 	{
-				// gnóm
-				ipar: 50,
-				gazdasag: 50,
-				mezogazdasag: 50,
-				lakashelyzet: 50,
-				banyaszat: 50,
-				hadugy: 50,
-				magia: 50,
-				tolvajlas: 50,
-				tudos: 5
-			},
-			{
-				// óriás
-				ipar: 30,
-				gazdasag: 30,
-				mezogazdasag: 30,
-				lakashelyzet: 40,
-				banyaszat: 30,
-				hadugy: 30,
-				magia: 40,
-				tolvajlas: 30,
-				tudos: 5
-			},
-			{
-				// élőhalott
-				ipar: 0,
-				gazdasag: 0,
-				mezogazdasag: 0,
-				lakashelyzet: 0,
-				banyaszat: 0,
-				hadugy: 0,
-				magia: 0,
-				tolvajlas: 0,
-				tudos: 0
-			},
-			{
-				// ember
-				ipar: 30,
-				gazdasag: 30,
-				mezogazdasag: 30,
-				lakashelyzet: 30,
-				banyaszat: 30,
-				hadugy: 30,
-				magia: 30,
-				tolvajlas: 30,
-				tudos: 5
-			}];
-var termeles= [{
-				// elf
-				fa: 0.7, // Fakitermelés szorzója (1: nincs bónusz, <1: malusz, >1: bónusz)
-				ko: 0.7,
-				fem: 0.7,
-				agyag: 0.7,
-				dragako: 0.7,
-				fegyver: 0.7,
-				gabona: 1.3,
-				raktar: 1 // Raktárkapacitás szorzója (1: nincs bónusz, <1: malusz, >1: bónusz)
-			},
-			{
-				// ork
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1,
-				raktar: 1
-			},
-			{
-				// félelf
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1,
-				raktar: 1
-			},
-			{
-				// törpe
-				fa: 2,
-				ko: 2,
-				fem: 2,
-				agyag: 2,
-				dragako: 2,
-				fegyver: 2,
-				gabona: 1,
-				raktar: 1.5
-			},
-			{
-				// gnóm
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1,
-				raktar: 0.9
-			},
-			{
-				// óriás
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1.2,
-				raktar: 1
-			},
-			{
-				// élőhalott
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1,
-				raktar: 1
-			},
-			{
-				// ember
-				fa: 1,
-				ko: 1,
-				fem: 1,
-				agyag: 1,
-				dragako: 1,
-				fegyver: 1,
-				gabona: 1,
-				raktar: 1
-			}];
+var fajok = [
+                     {
+                    	 // elf
+                    	 tudomany: {
+                    		 ipar: 1.3,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.3,
+                     		 lakashelyzet: 1.3,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.4,
+                     		 magia: 1.4,
+                     		 tolvajlas: 1.3
+                    	 },
+                    	 termeles: {
+                    		 fa: 0.7,
+                    		 ko: 0.7,
+                    		 fem: 0.7,
+                    		 agyag: 0.7,
+                    		 dragako: 0.7,
+                    		 fegyver: 0.7,
+                    		 gabona: 1.3
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.3,
+                    	 tamadas: 1.0,
+                    	 raktar: 1.0
+                     },
+                     {
+                    	 // ork
+                    	 tudomany: {
+                    		 ipar: 1.3,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.4,
+                     		 lakashelyzet: 1.3,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.4,
+                     		 magia: 1.3,
+                     		 tolvajlas: 1.3
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agyag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.0,
+                    	 tamadas: 1.3,
+                    	 raktar: 1.0
+                     },
+                     {
+                    	 // félelf
+                    	 tudomany: {
+                    		 ipar: 1.3,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.3,
+                     		 lakashelyzet: 1.4,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.3,
+                     		 magia: 1.3,
+                     		 tolvajlas: 1.4
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agyag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.1,
+                    	 tamadas: 0.9,
+                    	 raktar: 1.0
+                     },
+                     {
+                    	 // törpe
+                    	 tudomany: {
+                    		 ipar: 1.4,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.3,
+                     		 lakashelyzet: 1.3,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.4,
+                     		 magia: 1.3,
+                     		 tolvajlas: 1.3
+                    	 },
+                    	 termeles: {
+                    		 fa: 2.0,
+                    		 ko: 2.0,
+                    		 fem: 2.0,
+                    		 agyag: 2.0,
+                    		 dragako: 2.0,
+                    		 fegyver: 2.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.2,
+                    	 vedekezes: 1.2,
+                    	 tamadas: 1.0,
+                    	 raktar: 1.5
+                     },
+                     {
+                    	 // gnóm
+                    	 tudomany: {
+                    		 ipar: 1.5,
+                     		 gazdasag: 1.5,
+                     		 mezogazdasag: 1.5,
+                     		 lakashelyzet: 1.5,
+                     		 banyaszat: 1.5,
+                     		 hadugy: 1.5,
+                     		 magia: 1.5,
+                     		 tolvajlas: 1.5
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agyag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.0,
+                    	 tamadas: 1.0,
+                    	 raktar: 0.9
+                     },
+                     {
+                    	 // óriás
+                    	 tudomany: {
+                    		 ipar: 1.3,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.3,
+                     		 lakashelyzet: 1.4,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.3,
+                     		 magia: 1.4,
+                     		 tolvajlas: 1.3
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agyag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.2
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.15,
+                    	 tamadas: 1.15,
+                    	 raktar: 1.0
+                     },
+                     {
+                    	 // élőhalott
+                    	 tudomany: {
+                    		 ipar: 1.0,
+                     		 gazdasag: 1.0,
+                     		 mezogazdasag: 1.0,
+                     		 lakashelyzet: 1.0,
+                     		 banyaszat: 1.0,
+                     		 hadugy: 1.0,
+                     		 magia: 1.0,
+                     		 tolvajlas: 1.0
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.0,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.0,
+                    	 tamadas: 1.0,
+                    	 raktar: 1.0
+                     },
+                     {
+                    	 // ember
+                    	 tudomany: {
+                    		 ipar: 1.3,
+                     		 gazdasag: 1.3,
+                     		 mezogazdasag: 1.3,
+                     		 lakashelyzet: 1.3,
+                     		 banyaszat: 1.3,
+                     		 hadugy: 1.3,
+                     		 magia: 1.3,
+                     		 tolvajlas: 1.3
+                    	 },
+                    	 termeles: {
+                    		 fa: 1.0,
+                    		 ko: 1.0,
+                    		 fem: 1.0,
+                    		 agyag: 1.0,
+                    		 dragako: 1.0,
+                    		 fegyver: 1.0,
+                    		 gabona: 1.0
+                    	 },
+                    	 tudos_bonusz: 0.05,
+                    	 ferohely: 1.0,
+                    	 vedekezes: 1.0,
+                    	 tamadas: 1.0,
+                    	 raktar: 1.0
+                     },
+                     ];
+
+var egysegek = {
+				katona: {
+					vedoertek: 1,
+					tamadoertek: 1,
+				},
+				vedo: {
+					vedoertek: 4,
+					tamadoertek: 0,
+				},
+				tamado: {
+					vedoertek: 0,
+					tamadoertek: 4,
+				},
+				ijasz: {
+					vedoertek: 6,
+					tamadoertek: 2,
+				},
+				lovas: {
+					vedoertek: 2,
+					tamadoertek: 6,
+				},
+				elit: {
+					vedoertek: 5,
+					tamadoertek: 5,
+				}
+			};
 
 /* Katonai állandók */
 var barakk_hely = 40;
@@ -202,72 +263,16 @@ var gabona_fogyasztas = 5;
 var ember = 15;
 var piac_ember = 50;
 
-/* Egyéb állandók */
-var tudomany_alap = 30;
-var elohalott_bonusz = [60, 50, 40, 30, 20];
-
 /* Támadó értékek */
-var tamado = {katona:1, vedo:0, tamado:4, ijasz:2, lovas:6, elit:5};
 var tabornokok_bonusz = [0, 0, 0.03, 0.05, 0.06, 0.07, 0.08, 0.1, 0.2];
-var erosebb_szorzo = 0.1;
+var erosebb_szorzo = 1.1;
+var verszomj_szorzo = 1.3;
 
 /* Védő értékek */
-var vedo = {katona:1, vedo:4, tamado:0, ijasz:6, lovas:2, elit:5};
-var szabadsag = [0, 0.1, 0.2, 0.3];
+var szabadsag = [1, 1.1, 1.2, 1.3];
+var vedelem_szorzo = 1.3;
 
-/* Élőhalott szintenkénti bónusz */
-var elohalott_szint = [0.4, 0.3, 0.2, 0.1, 0];
-
-/* Faji bónuszok */
-var bonuszok = [{
-					// elf
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0.3, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// ork
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0.3 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// félelf
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0.1, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// törpe
-					ferohely: 1.2, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 1.2, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// gnóm
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// óriás
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0.15, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0.15 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// élőhalott
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				},
-				{
-					// ember
-					ferohely: 1, // szorzó a barakk- és őrtorony férőhelyhez
-					vedekezes: 0, // szorzó a védekezés bónusz kiszámításához (<1, ha nincs: 0)
-					tamadas: 0 // szorzó a támadás bónusz kiszámításához (<1, ha nincs: 0)
-				}];
-
-var mf_szorzo = 0.4;
-var vedelem_szorzo = 0.3;
-var verszomj_szorzo = 0.3;
+/* Egyéb állandók */
+var elohalott_bonusz = [1.6, 1.5, 1.4, 1.3, 1.2];
+var elohalott_szint = [1.4, 1.3, 1.2, 1.1, 1];
+var mf_szorzo = 1.4;
