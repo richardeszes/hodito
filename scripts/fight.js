@@ -162,26 +162,26 @@ function mutatCsataEredmeny() {
 
 function beallitTamadoMaxTud(elem) {
 	var faj = $('#csata_tamado_faj').val();
-    var tudomany_szorzo = window.fajok[faj].tudomany.hadugy;
+    var tudomany_szorzo = window.fajok[faj].tudomany.hadugy-1;
 	if ($('#csata_tamado_tudos').is(':checked')) {
 		// tudós
 		tudomany_szorzo = tudomany_szorzo + window.fajok[faj].tudos_bonusz;
 	}
-	var tudomany = parseInt((tudomany_szorzo-1)*100);
+	var tudomany = parseInt(tudomany_szorzo*100);
 	$('#'+elem).val(tudomany);
 }
 
 function beallitVedekezoMaxTud(elem) {
 	var faj = $('#csata_vedekezo_faj').val();
     if (elem=='hadugy') {
-	    var tudomany_szorzo = window.fajok[faj].tudomany.hadugy;
+	    var tudomany_szorzo = window.fajok[faj].tudomany.hadugy-1;
 		if ($('#csata_vedekezo_tudos').is(':checked')) {
 			// tudós
 			tudomany_szorzo = tudomany_szorzo + window.fajok[faj].tudos_bonusz;
 		}
     } else if (elem=='lakashelyzet') {
-    	var tudomany_szorzo = window.fajok[faj].tudomany.lakashelyzet;
+    	var tudomany_szorzo = window.fajok[faj].tudomany.lakashelyzet-1;
     }
-    var tudomany = parseInt((tudomany_szorzo-1)*100);
+    var tudomany = parseInt(tudomany_szorzo*100);
 	$('#csata_vedekezo_'+elem+'_tudomany').val(tudomany);
 }
