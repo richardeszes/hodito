@@ -18,10 +18,12 @@ function szamolVedoertek() {
     	toronyij_vedoertek = 8;
     }
     var ortornyok = parseInt($('#csata_vedekezo_ortornyok').val());
-    if (parseInt($('#csata_vedekezo_ijasz').val()) > (ortornyok * 40 * (1+(lakashelyzet/100)) * window.fajok[faj].ferohely)) {
-		var toronyij = parseInt($('#csata_vedekezo_ijasz').val());
+    if (parseInt($('#csata_vedekezo_ijasz').val()) < (ortornyok * 40 * (1+(lakashelyzet/100)) * window.fajok[faj].ferohely)) {
+		var toronyij = parseInt($('#csata_vedekezo_ijasz').val()); 
+		//ha kevesebb íjász van, akkor kell az íjászok száma
 	} else {
 		var toronyij = ortornyok * 40 * (1+(lakashelyzet/100)) * window.fajok[faj].ferohely;
+		//ha több az íjász, vagy ugyananni, mint elférne, akkor kell a tornyokban elférő 
 	}
     pontok += parseInt($('#csata_vedekezo_ijasz').val()) * window.egysegek.ijasz.vedoertek;
     pontok += toronyij * toronyij_vedoertek;
