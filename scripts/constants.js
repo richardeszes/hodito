@@ -73,7 +73,7 @@ var fajok = [
                     		 agyag: 1.0,
                     		 dragako: 1.0,
                     		 fegyver: 1.0,
-                    		 gabona: 1.0
+                    		 gabona: 0.9
                     	 },
                     	 tudos_bonusz: 0.05,
                     	 ferohely: 1.0,
