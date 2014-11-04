@@ -62,6 +62,9 @@ function szamolVedoertek() {
     
     /* --- Faji bónuszok/maluszok --- */
     pontok = pontok * window.fajok[faj].vedekezes;
+    if ($('#csata_vedo_orkbonusz').is(':checked')) {
+    	pontok = pontok * 1.2;
+    }
     
     /* --- Tudomány --- */
     pontok = pontok * (1+(parseInt($('#csata_vedekezo_hadugy_tudomany').val())/100));

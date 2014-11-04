@@ -327,7 +327,7 @@
                                                 <div class="form-group">
                                                     <label for="csata_vedekezo_faj" class="col-sm-12 control-label">Faj</label>
                                                     <div class="col-sm-12">
-                                                        <select class="form-control" id="csata_vedekezo_faj">
+                                                        <select class="form-control" id="csata_vedekezo_faj" onchange="ellenorizVedekezoFaj();">
                                                             <option value="0">elf</option>
                                                             <option value="1">ork</option>
                                                             <option value="2">félelf</option>
@@ -382,6 +382,12 @@
                                                         <input type="checkbox" id="csata_vedekezo_vedelem">
                                                     </div>
                                                     <label for="csata_vedekezo_vedelem" class="col-sm-10 control-label" style='padding-top: 30px; padding-bottom: 4px;'>Védelem</label>
+                                                </div>
+                                                <div class="form-group" title="Az otthon lévő seregek védőértéke nagyobb-e, mint a kint lévő seregek támadóértéke? (csak ork esetén!)" style="display: none;">
+                                                	<div class="col-sm-2" style='padding-top: 30px; padding-bottom: 4px;'>
+                                                        <input type="checkbox" id="csata_vedo_orkbonusz">
+                                                    </div>
+                                                    <label for="csata_vedo_orkbonusz" class="col-sm-10 control-label" style='padding-top: 30px; padding-bottom: 4px;'>Ork védelmi bónusz</label>
                                                 </div>
                                             </div>
                                         </form>

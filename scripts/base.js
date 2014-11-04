@@ -22,3 +22,13 @@ function validateValue(elem) {
 		}
 	}
 }
+
+function ellenorizVedekezoFaj() {
+	if ($('#csata_vedekezo_faj').val()==1) {
+		// ork
+		$('#csata_vedo_orkbonusz').parent().parent().css('display', 'block');
+	} else {
+		$('#csata_vedo_orkbonusz').parent().parent().css('display', 'none');
+		$('#csata_vedo_orkbonusz').prop('checked','');
+	}
+}
