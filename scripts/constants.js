@@ -73,7 +73,7 @@ var fajok = [
                     		 agyag: 1.0,
                     		 dragako: 1.0,
                     		 fegyver: 1.0,
-                    		 gabona: 0.9
+                    		 gabona: 1.0
                     	 },
                     	 tudos_bonusz: 0.05,
                     	 ferohely: 1.0,
@@ -275,4 +275,5 @@ var vedelem_szorzo = 1.3;
 /* Egyéb állandók */
 var elohalott_bonusz = [1.6, 1.5, 1.4, 1.3, 1.2];
 var elohalott_szint = [1.4, 1.3, 1.2, 1.1, 1];
+var ork_vedelmi_bonusz = 1.2;
 var mf_szorzo = 1.4;
