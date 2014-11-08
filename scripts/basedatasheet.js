@@ -5,14 +5,14 @@ function ellenorizTudomanyMax(setmax) {
     if ($('#orszag_szemelyiseg').val()==7) {
     	bonusz = window.fajok[faj].tudos_bonusz;
     }
-    var ipar = parseInt((window.fajok[faj].tudomany.ipar+bonusz)*100)-1;
-    var gazdasag = parseInt((window.fajok[faj].tudomany.gazdasag+bonusz)*100)-1;
-    var mezogazdasag = parseInt((window.fajok[faj].tudomany.mezogazdasag+bonusz)*100)-1;
-    var lakashelyzet = parseInt((window.fajok[faj].tudomany.lakashelyzet)*100)-1;
-    var banyaszat = parseInt((window.fajok[faj].tudomany.banyaszat+bonusz)*100)-1;
-    var hadugy = parseInt((window.fajok[faj].tudomany.hadugy+bonusz)*100)-1;
-    var magia = parseInt((window.fajok[faj].tudomany.magia+bonusz)*100)-1;
-    var tolvajlas = parseInt((window.fajok[faj].tudomany.tolvajlas+bonusz)*100)-1;
+    var ipar = parseInt((window.fajok[faj].tudomany.ipar+bonusz-1)*100);
+    var gazdasag = parseInt((window.fajok[faj].tudomany.gazdasag+bonusz-1)*100);
+    var mezogazdasag = parseInt((window.fajok[faj].tudomany.mezogazdasag+bonusz-1)*100);
+    var lakashelyzet = parseInt((window.fajok[faj].tudomany.lakashelyzet-1)*100);
+    var banyaszat = parseInt((window.fajok[faj].tudomany.banyaszat+bonusz-1)*100);
+    var hadugy = parseInt((window.fajok[faj].tudomany.hadugy+bonusz-1)*100);
+    var magia = parseInt((window.fajok[faj].tudomany.magia+bonusz-1)*100);
+    var tolvajlas = parseInt((window.fajok[faj].tudomany.tolvajlas+bonusz-1)*100);
     if (setmax) {
         $('#tudomany_ipar').val(ipar);
         $('#tudomany_gazdasag').val(gazdasag);
